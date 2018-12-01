@@ -30,7 +30,7 @@ int main()
         
         else
         {
-            if( ((sqrt(b*b -4*a*c)) < 0)) //Si el discriminante es menor que 0.
+            if((b*b -4*a*c) < 0)) //Si el discriminante es menor que 0.
             {
                 cout << "El discriminante es negativo por lo que no tiene solución." << endl;
             }
