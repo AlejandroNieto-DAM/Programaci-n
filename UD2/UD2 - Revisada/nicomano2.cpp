@@ -42,7 +42,7 @@ int main()
         
         numeroEntero = numero;
 
-        while((cin.fail() || ((numero > 100) || (numero <= 0)) || (numeroEntero != numero))) {
+        while((cin.fail()  )) {
             
             cin.eof();
             cin.clear();
@@ -51,12 +51,25 @@ int main()
             cin >> numero;
         }
         
-      
-        cout << "Tu numero escogido es: " << numero << endl;
-        entero = true;
+        if((numero > 100) || (numero <= 0)){
+            
+             cout << "Has introducido una variable incorrecta!. Prueba otra vez (Con un numero entero que este entre 1-100): ";
+            entero = false;
+            
+        } else if (numeroEntero != numero){
+            
+            cout << "Has introducido una variable incorrecta!. Prueba otra vez (Con un numero entero que este entre 1-100): ";
+            entero = false;
+        
+        } else {
+            
+            cout << "Tu numero escogido es: " << numero << endl;
+            entero = true;
+            
+        }
         
     }
-    while((entero == false) || (correcto = false));
+    while(entero == false);
     
     
     valor = cubo(numero);
