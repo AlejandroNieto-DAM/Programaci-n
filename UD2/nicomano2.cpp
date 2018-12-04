@@ -40,19 +40,20 @@ int main()
         cin >> numero;
         
         numeroEntero = numero;
-
-        while((cin.fail() || ((numero > 100) || (numero <= 0)) || (numeroEntero != numero))) {
-            
-            cin.eof();
-            cin.clear();
-            cin.ignore(numeric_limits < streamsize > ::max(), '\n');
-            cout << "Has introducido una variable incorrecta!. Prueba otra vez (Con un numero entero que este entre 1-100): ";
-            cin >> numero;
-        }
         
-      
-        cout << "Tu numero escogido es: " << numero << endl;
-        entero = true;
+        if((cin.fail() || ((numero > 100) || (numero <= 0)) || (numeroEntero != numero))) {
+            
+            cin.clear();
+            cin.ignore(256, '\n');
+            cout << "Has introducido una variable incorrecta!. Prueba otra vez (Con un numero entero que este entre 1-100): ";
+            entero = false;
+            
+        } else {
+            
+            cout << "Tu numero escogido es: " << numero << endl;
+            entero = true;
+            
+        }
         
     }
     while((entero == false) || (correcto = false));
@@ -64,4 +65,3 @@ int main()
     
     
 }
-
