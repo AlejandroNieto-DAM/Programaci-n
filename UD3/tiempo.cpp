@@ -4,8 +4,9 @@ using namespace std;
 /*
 
 @brief Lee un numero de entrada dado en seg.
-@param @tiempo en segundos
-@pre @tiempo no puede ser 0 ni mayor a 24 horas (86400)
+@param int tiempo en segundos.
+@pre tiempo no puede ser 0 ni mayor a 24 horas (86400).
+@return no devuelve nada.
 
 */
 void leerNumero (int &tiempo){
@@ -27,9 +28,9 @@ void leerNumero (int &tiempo){
 /*
 
 @brief Cambia los segundos a horas, minutos y segundos.
-@param @tiempo en segundos para calcular el cambio a horas, minutos y segundos.
-@pre @tiempo menor que 86400 y mayor que 0.
-@return @tiempo cambiado a @horas, @minutos y @segundos.
+@param int tiempo en segundos para calcular el cambio a int horas, int minutos e int segundos.
+@pre tiempo menor que 86400 y mayor que 0.
+@return tiempo cambiado a horas, minutos y segundos.
 
 */
 void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
@@ -44,7 +45,9 @@ void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
 /*
 
 @brief Imprime el resultado final.
-@param @horas, @minutos y @segundos
+@param int horas, int minutos e int segundos.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirResultado (int horas, int minutos, int segundos){

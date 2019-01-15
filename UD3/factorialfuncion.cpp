@@ -4,9 +4,9 @@ using namespace std;
 /*
 
 @brief calcula el factorial del numero @n.
-@param @n para calcular su factorial.
-@pre @n debe ser un numero entero positivo.
-@return @acumulador que es el resultado del factorial de acuerdo al numero @n.
+@param int n para calcular su factorial.
+@pre n debe ser un numero entero positivo.
+@return acumulador que es el resultado del factorial de acuerdo al numero n.
 
 */
 

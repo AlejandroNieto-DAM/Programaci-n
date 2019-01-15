@@ -4,9 +4,9 @@ using namespace std;
 /*
 
 @brief Lee los numeros de entrada necesarios para el intervalo.
-@param @numeroIntroducido1 y @numeroIntroducido2 que son valores respectivos para cada valor del intervalo.
-@pre @numeroIntroducido1 < @numeroIntroducido2.
-@return cambia el valor de @numeroIntroducido1 y @numeroIntroducido2.
+@param int numeroIntroducido1 e int numeroIntroducido2 que son valores respectivos para cada valor del intervalo.
+@pre numeroIntroducido1 < numeroIntroducido2.
+@return cambia el valor de numeroIntroducido1 y numeroIntroducido2.
 
 */
 void leerNumero (int &numeroIntroducido1, int &numeroIntroducido2){
@@ -24,10 +24,10 @@ void leerNumero (int &numeroIntroducido1, int &numeroIntroducido2){
 /*
 
 @brief Calcula el mcd de acuerdo al intervalo introducido.
-@param @numero1 y @numero2.
-@pre @numero1 < @numero2 siendo los dos distintos.
-@return retorna @numero2 que sera el resultado del mcd.
-@post @numero2 sera el resultado del mcd.
+@param int numero1 e int numero2.
+@pre numero1 < numero2 siendo los dos distintos.
+@return retorna numero2 que sera el resultado del mcd.
+@post numero2 sera el resultado del mcd.
 
 */
 int calcularMCD (int numero1, int numero2){
@@ -51,10 +51,10 @@ int calcularMCD (int numero1, int numero2){
 /*
 
 @brief Calcula el mcm de acuerdo al mcd calculado.
-@param @a, @b, @resultado y @resultado2.
-@pre @a < @b siendo los dos distintos.
-@return cambia el valor de @resultado2 que sera el resultado del mcm.
-@post @resultado2 sera el mcm.
+@param int a, int b, int resultado e int resultado2.
+@pre a < b siendo los dos distintos.
+@return cambia el valor de resultado2 que sera el resultado del mcm.
+@post resultado2 sera el mcm.
 
 */
 int calcularMCM (int a, int b, int resultado, int &resultado2){
@@ -69,6 +69,8 @@ int calcularMCM (int a, int b, int resultado, int &resultado2){
 
 @brief Imprime el resultado del mcm calculado anteriormente.
 @param @resultado2 siendo este el resultado del m.c.m.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirResultado (int resultado2){

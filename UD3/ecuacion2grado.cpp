@@ -6,8 +6,9 @@ using namespace std;
 /*
 
 @brief Lee 3 numeros de entrada para hacer la ecuación de 2º grado.
-@param @a, @b y @c para cada uno de los terminos de la ecuación.
-@pre @a, @b y @c para x2, x y c respectivamente.
+@param double a, double b y double c para cada uno de los terminos de la ecuación.
+@pre a, b y c para x2, x y c respectivamente.
+@return no devuelve nada.
 
 */
 void leerNumeros (double &a, double &b, double &c){
@@ -24,9 +25,9 @@ void leerNumeros (double &a, double &b, double &c){
 /*
 
 @brief Determina si la ecuación tiene solución o no.
-@param @a, @b y @c para cada uno de los terminos de la ecuación.
-@pre @a, @b y @c para x2, x y c respectivamente.
-@return @solucionable para saber si tiene solución o no.
+@param double a, double b y double c para cada uno de los terminos de la ecuación.
+@pre a, b y c para x2, x y c respectivamente.
+@return solucionable para saber si tiene solución o no.
 
 */
 int posibleResultado (double a, double b, double c, int &solucionable){
@@ -50,9 +51,9 @@ int posibleResultado (double a, double b, double c, int &solucionable){
 /*
 
 @brief Calcula el resultado de la ecuación.
-@param @a, @b y @c para cada uno de los terminos de la ecuación.
-@pre @a, @b y @c para x2, x y c respectivamente.
-@return @resultado1 y @resultado2 cambiando el numero.
+@param double a, double b y double c para cada uno de los terminos de la ecuación.
+@pre a, b y c para x2, x y c respectivamente.
+@return resultado1 y resultado2 cambiando el numero.
 
 */
 void calcularResultado (double a, double b, double c, double &resultado1, double &resultado2){
@@ -69,7 +70,9 @@ void calcularResultado (double a, double b, double c, double &resultado1, double
 /*
 
 @brief Imprime los dos resultados de la ecuación.
-@param @resultado1 y @resultado2 para cada uno de los resultados de la ecuación.
+@param double resultado1 y double resultado2 para cada uno de los resultados de la ecuación.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirResultado (double resultado1, double resultado2){

@@ -5,6 +5,8 @@ using namespace std;
 /*
 
 @brief Frase necesaria en la funcion FiltroAntiJaime.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void texto (){
@@ -17,6 +19,8 @@ void texto (){
 /*
 
 @brief Frase necesaria en la funcion FiltroAntiJaime.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void texto2 (){
@@ -28,10 +32,10 @@ void texto2 (){
 /*
 
 @brief Filtro para evitar letras o numeros decimales en la variable @n.
-@param @n siendo un double para determinar si es correcto.
-@pre @n > 0 siendo este un numero entero.
+@param double n siendo un double para determinar si es correcto.
+@pre n > 0 siendo este un numero entero.
 @return retorna un valor correcto de Int para seguir con las operaciones.
-@post @n será un numero mayor que 0 y entero.
+@post n será un numero mayor que 0 y entero.
 
 */
 double filtroAntiJaime(double n) {
@@ -73,6 +77,8 @@ double filtroAntiJaime(double n) {
 /*
 
 @brief Frase necesaria en la funcion primo.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void noPrimo (){
@@ -84,6 +90,8 @@ void noPrimo (){
 /*
 
 @brief Frase necesaria en la funcion primo.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void esPrimo (){
@@ -95,8 +103,9 @@ void esPrimo (){
 /*
 
 @brief muestra si el numero introducido es primo o no.
-@param @n para ver si es primo o no.
-@pre @n > 0 siendo este un numero entero.
+@param int n para ver si es primo o no.
+@pre n > 0 siendo este un numero entero.
+@return no devuelve nada.
 
 */
 void primo (int n) {

@@ -4,11 +4,11 @@ using namespace std;
 /*
 
 @brief Leer los numeros de entrada y hace los respectivos calculos.
-@param @horas que el automovil ha estado estacionado, @totalHoras para el total de las horas de los automoviles,
-		@totalDinero para calcular el dinero recaudado.
-@pre @hooras debe ser un double positivo.
-@return cambiar el valor de @totalHoras y @totalDinero mientras metas un valor distinto a 0 en @horas.
-@post @totalHoras y @totalDinero deben ser siempre positivos.
+@param double horas que el automovil ha estado estacionado, double totalHoras para el total de las horas de los automoviles,
+		double totalDinero para calcular el dinero recaudado.
+@pre horas debe ser un double positivo.
+@return cambiar el valor de @totalHoras y totalDinero mientras metas un valor distinto a 0 en horas.
+@post totalHoras y totalDinero deben ser siempre positivos.
 
 */
 void leerYcalcularCargos (double &horas, double &totalHoras, double &totalDinero){
@@ -68,7 +68,9 @@ void leerYcalcularCargos (double &horas, double &totalHoras, double &totalDinero
 /*
 
 @brief Imprime el resultado final de la suma de las horas y los cargos.
-@param @totalHoras y @totalDinero que son las sumas de las horas y el dinero respectivamente.
+@param double totalHoras y double totalDinero que son las sumas de las horas y el dinero respectivamente.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirResultadoTotal (double totalHoras, double totalDinero){

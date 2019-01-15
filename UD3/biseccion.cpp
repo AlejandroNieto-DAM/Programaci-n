@@ -4,9 +4,10 @@ using namespace std;
 /*
 
 @brief Lee los datos de entrada necesarios para realiar la operación dado el valor @precision.
-@param la @precision que quieres para calcular la solución.
-@pre @precision debe estar entre 0 y 1.
-@return cambia el valor de @precision.
+@param double precision para calcular la solución.
+@pre precision debe estar entre 0 y 1.
+@return cambia el valor de precision.
+@post precision no debe cambiar su valor durante el programa.
 
 */
 
@@ -19,10 +20,10 @@ void leerPrecision (double &precision) {
 
 /*
 
-@brief Calcula la solución de la ecuación de acuerdo a @precision y los calculos realizados.
-@param @precision, @izq, @der, @centro que son necesarios para saber la solución.
-@pre @precision < @der - @izq.
-@return cambia el valor de @izq y @der.
+@brief Calcula la solución de la ecuación de acuerdo a precision y los calculos realizados.
+@param double precision, double izq, double der, double centro que son necesarios para saber la solución.
+@pre precision < der - izq.
+@return cambia el valor de izq y der.
 @post la solución debe ajutarse a un double entre 0 y 1.
 
 */
@@ -49,8 +50,10 @@ void calcularDerIzq (double centro, double &izq, double &der, double precision){
 
 /*
 
-@brief Imprime la solucición de acuerdo a @izq y @der.
-@param @der y @izq para imprimir el resultado necesario por pantalla.
+@brief Imprime la solucición de acuerdo a izq y der.
+@param double der y double izq para imprimir el resultado necesario por pantalla.
+@pre debe estar activa la salida por pantalla.
+@return No devuelve nada.
 
 */
 

@@ -4,9 +4,9 @@ using namespace std;
 /*
 
 @brief Lee 10 numeros de entrada para calcular cual es el mayor.
-@param @numero introducido 10 veces.
-@pre @numero debe ser un int.
-@return cambia el valor de @max necesario para imprimirlo después.
+@param int numero introducido 10 veces.
+@pre numero debe ser un int.
+@return cambia el valor de max necesario para imprimirlo después.
 
 */
 
@@ -34,9 +34,9 @@ void leerNumerosMayor (int &numero, int &min){
 /*
 
 @brief Lee 10 numeros de entrada para calcular cual es el menor.
-@param @numero introducido 10 veces.
-@pre @numero debe ser un int.
-@return cambia el valor de @min necesario para imprimirlo después.
+@param int numero introducido 10 veces.
+@pre numero debe ser un int.
+@return cambia el valor de min necesario para imprimirlo después.
 
 */
 void leerNumerosMenor (int &numero, int &min){
@@ -69,6 +69,9 @@ void leerNumerosMenor (int &numero, int &min){
 /*
 
 @brief Imprime el numero mayor de acuerdo a lo calculado.
+@param int MAX.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirMAX (int MAX){
@@ -82,6 +85,9 @@ void imprimirMAX (int MAX){
 /*
 
 @brief Imprime el numero menor de acuerdo a lo calculado.
+@param int min.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 void imprimirMAX (int min){
@@ -96,6 +102,7 @@ void imprimirMAX (int min){
 @brief Menú que de acuerdo a una variable se mostrará una opción u otra.
 @param @numeroMenu para hacer una opción u otra.
 @pre @numeroMenu deberá ser 1 o 2 sino dará un error.
+@return no devuelve nada.
 
 */
 void Menu (int numeroMenu){

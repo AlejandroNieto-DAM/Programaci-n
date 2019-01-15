@@ -4,9 +4,9 @@ using namespace std;
 /*
 
 @brief Lee 10 numeros de entrada para calcular cual es el mayor y cual es el menor.
-@param @numero introducido 10 veces.
-@pre @numero debe ser un int.
-@return cambia el valor de @max y @min necesarios para imprimirlos después.
+@param int numero introducido 10 veces.
+@pre numero debe ser un int.
+@return cambia el valor de max y min necesarios para imprimirlos después.
 
 */
 
@@ -46,6 +46,9 @@ void leerNumeros (int &numero, int &max, int &min){
 /*
 
 @brief Imprime el numero mayor y el numero menor de acuerdo a lo calculado.
+@param int MAX e int min.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
 
 */
 

@@ -3,10 +3,10 @@ using namespace std;
 
 /*
 
-@brief Es una funcion que dados dos numeros @x y @y sirve como ejemplo para ver el ambito de las variables.
-@param @x e @y numeros para ver el ambito de las variables.
-@pre x e y sean double. 
-@return devuelve @j para ver el cambio ocurrido dentro de la función.
+@brief Es una funcion que dados dos numeros x y y sirve como ejemplo para ver el ambito de las variables.
+@param double x y double y numeros para ver el ambito de las variables.
+@pre x e y sean numeros validos para un double. 
+@return devuelve j para ver el cambio ocurrido dentro de la función.
 @post el resultado puede ser cualquier tipo de numero que se ajuste a un double.
 
 */
