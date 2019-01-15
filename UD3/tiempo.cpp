@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+/*
+
+@brief Lee un numero de entrada dado en seg.
+@param @tiempo en segundos
+@pre @tiempo no puede ser 0 ni mayor a 24 horas (86400)
+
+*/
 void leerNumero (int &tiempo){
 
 
@@ -16,6 +23,15 @@ void leerNumero (int &tiempo){
 
 }
 
+
+/*
+
+@brief Cambia los segundos a horas, minutos y segundos.
+@param @tiempo en segundos para calcular el cambio a horas, minutos y segundos.
+@pre @tiempo menor que 86400 y mayor que 0.
+@return @tiempo cambiado a @horas, @minutos y @segundos.
+
+*/
 void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
 
 	horas = tiempo/3600;
@@ -24,6 +40,13 @@ void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
 
 }
 
+
+/*
+
+@brief Imprime el resultado final.
+@param @horas, @minutos y @segundos
+
+*/
 void imprimirResultado (int horas, int minutos, int segundos){
 
 	cout << "Lo introducido se traduce en " << horas << " horas, " << minutos << " minutos y " << segundos << " segundos." << endl;

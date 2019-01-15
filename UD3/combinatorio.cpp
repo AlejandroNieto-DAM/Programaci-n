@@ -1,11 +1,25 @@
 #include <iostream>
 using namespace std;
 
+
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
+
 void texto (){
     
     cout << "Has introducido una variable incorrecta!. Prueba otra vez: ";
     
 }
+
+
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
 
 void texto2 (){
     
@@ -13,6 +27,16 @@ void texto2 (){
     
 }
 
+
+/*
+
+@brief Filtro para evitar letras o numeros decimales en la variable @n.
+@param @n siendo un double para determinar si es correcto.
+@pre @n > 0 siendo este un numero entero.
+@return retorna un valor correcto de Int para seguir con las operaciones.
+@post @n será un numero mayor que 0 y entero.
+
+*/
 
 double filtroAntiJaime(double n) {
     
@@ -46,6 +70,17 @@ double filtroAntiJaime(double n) {
     return  n;
 }
 
+
+/*
+
+@brief Calcula el factorial de acuerdo al numero la variable @n.
+@param @n siendo un entero para determinar el factorial.
+@pre @n > 0 siendo este un numero entero.
+@return retorna el factorial de @n.
+@post @acu será un numero entero positivo.
+
+*/
+
 int factorial (int n) {
     
     int acu = 1;
@@ -57,6 +92,16 @@ int factorial (int n) {
     
     return acu;
 }
+
+
+/*
+
+@brief Calcula el combinatorio de acuerdo a las variables @numero1 y @numero2.
+@param @numero1 y @numero2 siendo enteros positivos para determinar el combinatorio.
+@pre @numero1 y @numero2 > 0 siendo estos un numero entero.
+@return retorna el resultado del combinatorio @resultado.
+
+*/
 
 double combinatorio (int numero1, int numero2) {
     

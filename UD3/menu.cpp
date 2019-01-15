@@ -1,9 +1,16 @@
 #include <iostream>
 using namespace std;
 
-void leerNumerosMayor (int &numero, int &max){
+/*
 
-	numero = 0;
+@brief Lee 10 numeros de entrada para calcular cual es el mayor.
+@param @numero introducido 10 veces.
+@pre @numero debe ser un int.
+@return cambia el valor de @max necesario para imprimirlo después.
+
+*/
+
+void leerNumerosMayor (int &numero, int &min){
 
 	cout << "Programa que muestra el MAX de una secuencia de numeros." << endl;
 
@@ -23,9 +30,16 @@ void leerNumerosMayor (int &numero, int &max){
 
 }
 
-void leerNumerosMenor (int &numero, int &min){
 
-	numero = 0;
+/*
+
+@brief Lee 10 numeros de entrada para calcular cual es el menor.
+@param @numero introducido 10 veces.
+@pre @numero debe ser un int.
+@return cambia el valor de @min necesario para imprimirlo después.
+
+*/
+void leerNumerosMenor (int &numero, int &min){
 
 	cout << "Programa que muestra el min de una secuencia de numeros." << endl;
 
@@ -51,21 +65,40 @@ void leerNumerosMenor (int &numero, int &min){
 
 }
 
+
+/*
+
+@brief Imprime el numero mayor de acuerdo a lo calculado.
+
+*/
 void imprimirMAX (int MAX){
-
-	cout << "El numero menor de la sucesion de valores es: " << MAX << endl;
-
-
-}
-
-void imprimirMin (int min){
 
 	cout << "El numero menor de la sucesion de valores es: " << min << endl;
 
 
 }
 
-void Menu (int &numeroMenu, int &numeroIntroducido, int &numeroMax, int &numeroMin){
+
+/*
+
+@brief Imprime el numero menor de acuerdo a lo calculado.
+
+*/
+void imprimirMAX (int min){
+
+	cout << "El numero menor de la sucesion de valores es: " << min << endl;
+
+
+}
+
+/*
+
+@brief Menú que de acuerdo a una variable se mostrará una opción u otra.
+@param @numeroMenu para hacer una opción u otra.
+@pre @numeroMenu deberá ser 1 o 2 sino dará un error.
+
+*/
+void Menu (int numeroMenu){
 
 	cout << "Bienvenido a mi programa para calcular o el maximo o el minimo de una sucesion de numeros." << endl;
 
@@ -77,13 +110,11 @@ void Menu (int &numeroMenu, int &numeroIntroducido, int &numeroMax, int &numeroM
 
 	if(numeroMenu == 1){
 
-		leerNumerosMayor(numeroIntroducido, numeroMax);
-		imprimirMAX(numeroMax);
+		leerNumerosMayor();
 
 	} else if (numeroMenu == 2){
 
-		leerNumerosMenor(numeroIntroducido, numeroMin);
-		imprimirMin(numeroMin);
+		leerNumerosMenor();
 
 	} else {
 
@@ -98,6 +129,6 @@ int main(){
 	int numeroIntroducido = 0, numeroMax = 0, numeroMin = 0;
 	int opcion = 0;
 
-	Menu(opcion, numeroIntroducido, numeroMax, numeroMin);
+	menu(opcion);
 
 }

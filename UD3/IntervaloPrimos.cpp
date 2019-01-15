@@ -1,6 +1,15 @@
 #include <iostream>
 using namespace std;
 
+
+/*
+
+@brief Lee los numeros de entrada necesarios para el intervalo.
+@param @a y @b son los numeros del intervalo.
+@pre @a < @b para calcular bien el intervalo.
+
+*/
+
 void leerIntervalo(int &a, int &b){
 
 	cout << "\nVamos a introducir un intervalo para calcular cuantos numeros primos hay." << endl;
@@ -10,6 +19,17 @@ void leerIntervalo(int &a, int &b){
 	cin >> b;
 
 }
+
+
+/*
+
+@brief Calcula el total de numeros primos en un intervalo.
+@param @x y @y siendo el intervalo para calcular los primos.
+@pre @x < @y para el intervalo.
+@return devuelve el total de numeros primos en el intervalo.
+@post @total debera ser un numero entero positivo o igual a 0.
+
+*/
 
 int calcularTotalPrimos(int x, int y){
 
@@ -45,6 +65,14 @@ int calcularTotalPrimos(int x, int y){
 
 
 }
+
+
+/*
+
+@brief Imprime el resultado de acuerdo a la variable @totalIntervalo.
+@param @totalIntervalo numero de total de primos en un intervalo.
+
+*/
 
 void imprimirTotal(int totalIntervalo){
 

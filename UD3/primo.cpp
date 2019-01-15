@@ -1,19 +1,39 @@
 #include <iostream>
 using namespace std;
 
+
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
 void texto (){
     
     cout << "Has introducido una variable incorrecta!. Prueba otra vez: ";
     
 }
 
+
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
 void texto2 (){
     
     cout << "El numero seleccionado es: ";
     
 }
 
+/*
 
+@brief Filtro para evitar letras o numeros decimales en la variable @n.
+@param @n siendo un double para determinar si es correcto.
+@pre @n > 0 siendo este un numero entero.
+@return retorna un valor correcto de Int para seguir con las operaciones.
+@post @n será un numero mayor que 0 y entero.
+
+*/
 double filtroAntiJaime(double n) {
     
     bool entero = false;
@@ -50,29 +70,45 @@ double filtroAntiJaime(double n) {
     return  n;
 }
 
+/*
+
+@brief Frase necesaria en la funcion primo.
+
+*/
 void noPrimo (){
     
-    cout << "Es un numero par." << endl;
+    cout << "No es un numero primo." << endl;
 }
 
+
+/*
+
+@brief Frase necesaria en la funcion primo.
+
+*/
 void esPrimo (){
     
     cout << "Es un numero primo." << endl;
 }
 
- void primo (int n) {
+
+/*
+
+@brief muestra si el numero introducido es primo o no.
+@param @n para ver si es primo o no.
+@pre @n > 0 siendo este un numero entero.
+
+*/
+void primo (int n) {
     
-    bool primo = false;
     
     if(n%2 == 0) {
         
-        noPrimo();
-        primo = false;
+        noPrimo();  
         
     } else {
         
         esPrimo();
-        primo = true;
         
     }
     

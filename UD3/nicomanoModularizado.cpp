@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+/*
+
+@brief Lee un numero de entrada.
+@param @numeroIntroducido para calcular su cubo.
+@pre @numeroIntroducido deberá ser un numero entero positivo.
+
+*/
 void leerNumero (int &numeroIntroducido){
 
     cout << "Introduce un numero entero para ver su cubo: ";
@@ -9,6 +16,14 @@ void leerNumero (int &numeroIntroducido){
     
 }
 
+/*
+
+@brief Calcula el cubo del numero introducido anteriormente @n.
+@param @n para calcular su cubo.
+@pre @n > 0 y entero.ç
+@return @suma que es el resultado del cubo de @n
+
+*/
 int cubo (int &n){
     
     int suma = 0;
@@ -28,6 +43,13 @@ int cubo (int &n){
     
 }
 
+
+/*
+
+@brief Imprime el resultado del cubo del número.
+@param @resultado que es el cubo del numero introducido.
+
+*/
 void imprimirResultado (int &resultado){
 
     cout << "El cubo del numero introducido es: " << resultado << endl;

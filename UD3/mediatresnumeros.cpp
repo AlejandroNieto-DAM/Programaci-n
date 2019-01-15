@@ -1,28 +1,38 @@
 #include <iostream>
 using namespace std;
 
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
 void texto (){
     
     cout << "Has introducido una variable incorrecta!. Prueba otra vez: ";
     
 }
 
+
+/*
+
+@brief Frase necesaria en la funcion FiltroAntiJaime.
+
+*/
 void texto2 (){
     
     cout << "El numero seleccionado es: ";
     
 }
 
-double media (double n1, double n2, double n3) {
-    
-    double m = 0.0;
-    
-    m = ((n1 + n2 + n3) / 3 );
-    
-    return m;
-    
-}
+/*
 
+@brief Filtro para evitar letras en la variable @n.
+@param @n para determinar si es correcto.
+@pre @n > 0 siendo este un numero entero.
+@return retorna un valor correcto de Int para seguir con las operaciones.
+@post @n será un numero mayor que 0 y entero.
+
+*/
 double filtroAntiJaime(double n) {
     
     bool entero = false;
@@ -49,6 +59,26 @@ double filtroAntiJaime(double n) {
     while(entero == false);
     
     return  n;
+}
+
+
+/*
+
+@brief Calcula la media de 3 numeros introducidos @n1, @n2 y @n3.
+@param @n1, @n2 y @n3 para calcular su media.
+@pre @n1, @n2 y @n3 siendo numeros enteros.
+@return retorna @m que es el resultado de la media.
+@post @m será la media de los 3 numeros introducidos.
+
+*/
+double media (double n1, double n2, double n3) {
+    
+    double m = 0.0;
+    
+    m = ((n1 + n2 + n3) / 3 );
+    
+    return m;
+    
 }
 
 
