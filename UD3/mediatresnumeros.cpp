@@ -6,6 +6,7 @@ using namespace std;
 @brief Frase necesaria en la funcion FiltroAntiJaime.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void texto (){
@@ -20,6 +21,7 @@ void texto (){
 @brief Frase necesaria en la funcion FiltroAntiJaime.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void texto2 (){
@@ -32,9 +34,9 @@ void texto2 (){
 
 @brief Filtro para evitar letras en la variable @n.
 @param double n para determinar si es correcto.
-@pre n > 0 siendo este un numero entero.
+@pre debe estar activa la entrada por teclado y debe de haber dado un fallo con la variable.
 @return retorna un valor correcto de Int para seguir con las operaciones.
-@post n será un numero mayor que 0 y entero.
+@post n > 0 siendo este un numero entero.
 
 */
 double filtroAntiJaime(double n) {

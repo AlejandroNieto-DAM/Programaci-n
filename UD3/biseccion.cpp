@@ -7,7 +7,7 @@ using namespace std;
 @param double precision para calcular la solución.
 @pre precision debe estar entre 0 y 1.
 @return cambia el valor de precision.
-@post precision no debe cambiar su valor durante el programa.
+@post precision guardará un valor entre 0 y 1 necesario para realizar el calculo en la siguiente función.
 
 */
 
@@ -24,7 +24,7 @@ void leerPrecision (double &precision) {
 @param double precision, double izq, double der, double centro que son necesarios para saber la solución.
 @pre precision < der - izq.
 @return cambia el valor de izq y der.
-@post la solución debe ajutarse a un double entre 0 y 1.
+@post se cambiará el resultado de izq y der para dar el resultado en la función imprimir.
 
 */
 
@@ -54,6 +54,7 @@ void calcularDerIzq (double centro, double &izq, double &der, double precision){
 @param double der y double izq para imprimir el resultado necesario por pantalla.
 @pre debe estar activa la salida por pantalla.
 @return No devuelve nada.
+@post der e izq darán el resultado tras una operación.
 
 */
 

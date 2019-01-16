@@ -7,6 +7,7 @@ using namespace std;
 @param int numero introducido 10 veces.
 @pre numero debe ser un int.
 @return cambia el valor de max y min necesarios para imprimirlos después.
+@post max y min iran almacenando el valor mayor y menor respectivamente según vaya avanzando el bucle progresivamente.
 
 */
 
@@ -49,6 +50,7 @@ void leerNumeros (int &numero, int &max, int &min){
 @param int MAX e int min.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 

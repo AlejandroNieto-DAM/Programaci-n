@@ -7,10 +7,11 @@ using namespace std;
 @param int numero introducido 10 veces.
 @pre numero debe ser un int.
 @return cambia el valor de max necesario para imprimirlo después.
+@post min guardará el máximo valor del intervalo.
 
 */
 
-void leerNumerosMayor (int &numero, int &min){
+void leerNumerosMayor (int &numero, int &max){
 
 	cout << "Programa que muestra el MAX de una secuencia de numeros." << endl;
 
@@ -37,6 +38,7 @@ void leerNumerosMayor (int &numero, int &min){
 @param int numero introducido 10 veces.
 @pre numero debe ser un int.
 @return cambia el valor de min necesario para imprimirlo después.
+@post min guardará el minimo valor del intervalo.
 
 */
 void leerNumerosMenor (int &numero, int &min){
@@ -76,7 +78,7 @@ void leerNumerosMenor (int &numero, int &min){
 */
 void imprimirMAX (int MAX){
 
-	cout << "El numero menor de la sucesion de valores es: " << min << endl;
+	cout << "El numero menor de la sucesion de valores es: " << MAX << endl;
 
 
 }
@@ -90,7 +92,7 @@ void imprimirMAX (int MAX){
 @return no devuelve nada.
 
 */
-void imprimirMAX (int min){
+void imprimirMin (int min){
 
 	cout << "El numero menor de la sucesion de valores es: " << min << endl;
 
@@ -105,7 +107,7 @@ void imprimirMAX (int min){
 @return no devuelve nada.
 
 */
-void Menu (int numeroMenu){
+void Menu (int numeroMenu, int numeroMax, int numeroMin, int numeroIntroducido){
 
 	cout << "Bienvenido a mi programa para calcular o el maximo o el minimo de una sucesion de numeros." << endl;
 
@@ -117,11 +119,13 @@ void Menu (int numeroMenu){
 
 	if(numeroMenu == 1){
 
-		leerNumerosMayor();
+		leerNumerosMayor(numeroIntroducido, numeroMax);
+		imprimirMAX(numeroMax);
 
 	} else if (numeroMenu == 2){
 
-		leerNumerosMenor();
+		leerNumerosMenor(numeroIntroducido, numeroMin);
+		imprimirMin(numeroMin);
 
 	} else {
 
@@ -136,6 +140,6 @@ int main(){
 	int numeroIntroducido = 0, numeroMax = 0, numeroMin = 0;
 	int opcion = 0;
 
-	menu(opcion);
+	Menu(opcion, numeroMax, numeroMin, numeroIntroducido);
 
 }

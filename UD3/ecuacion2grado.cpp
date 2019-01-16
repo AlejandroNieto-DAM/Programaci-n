@@ -7,8 +7,9 @@ using namespace std;
 
 @brief Lee 3 numeros de entrada para hacer la ecuación de 2º grado.
 @param double a, double b y double c para cada uno de los terminos de la ecuación.
-@pre a, b y c para x2, x y c respectivamente.
+@pre debe estar activa la entrada por teclado.
 @return no devuelve nada.
+@post a,b y c almacenaran x2, x y c respectivamente.
 
 */
 void leerNumeros (double &a, double &b, double &c){
@@ -28,6 +29,7 @@ void leerNumeros (double &a, double &b, double &c){
 @param double a, double b y double c para cada uno de los terminos de la ecuación.
 @pre a, b y c para x2, x y c respectivamente.
 @return solucionable para saber si tiene solución o no.
+@post solucionable nos dará un valor para ver si la ecuacion tiene respuestas o no.
 
 */
 int posibleResultado (double a, double b, double c, int &solucionable){
@@ -52,8 +54,9 @@ int posibleResultado (double a, double b, double c, int &solucionable){
 
 @brief Calcula el resultado de la ecuación.
 @param double a, double b y double c para cada uno de los terminos de la ecuación.
-@pre a, b y c para x2, x y c respectivamente.
+@pre debe ser una ecuación con solución.
 @return resultado1 y resultado2 cambiando el numero.
+@post resultado1 y resultado2 almacenaran las respuestas de x para la ecuación.
 
 */
 void calcularResultado (double a, double b, double c, double &resultado1, double &resultado2){
@@ -73,6 +76,7 @@ void calcularResultado (double a, double b, double c, double &resultado1, double
 @param double resultado1 y double resultado2 para cada uno de los resultados de la ecuación.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void imprimirResultado (double resultado1, double resultado2){
@@ -84,6 +88,9 @@ void imprimirResultado (double resultado1, double resultado2){
 /*
 
 @brief Mensaje de error para cuando la ecuacion no tenga resultado.
+@pre debe estar activa la salida por pantalla.
+@post no tiene.
+@return no devuelve nada.
 
 */
 void errorEcuacion (){

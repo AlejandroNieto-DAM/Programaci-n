@@ -8,7 +8,7 @@ using namespace std;
 		double totalDinero para calcular el dinero recaudado.
 @pre horas debe ser un double positivo.
 @return cambiar el valor de @totalHoras y totalDinero mientras metas un valor distinto a 0 en horas.
-@post totalHoras y totalDinero deben ser siempre positivos.
+@post totalHoras y totalDinero almacenaran el total de los mismos para mostrarlos al final.
 
 */
 void leerYcalcularCargos (double &horas, double &totalHoras, double &totalDinero){
@@ -71,6 +71,7 @@ void leerYcalcularCargos (double &horas, double &totalHoras, double &totalDinero
 @param double totalHoras y double totalDinero que son las sumas de las horas y el dinero respectivamente.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void imprimirResultadoTotal (double totalHoras, double totalDinero){

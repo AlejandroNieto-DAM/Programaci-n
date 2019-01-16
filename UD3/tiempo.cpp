@@ -5,8 +5,9 @@ using namespace std;
 
 @brief Lee un numero de entrada dado en seg.
 @param int tiempo en segundos.
-@pre tiempo no puede ser 0 ni mayor a 24 horas (86400).
+@pre debe estar activa la entrada por teclado.
 @return no devuelve nada.
+@post tiempo no puede ser 0 ni mayor a 24 horas (86400).
 
 */
 void leerNumero (int &tiempo){
@@ -31,6 +32,7 @@ void leerNumero (int &tiempo){
 @param int tiempo en segundos para calcular el cambio a int horas, int minutos e int segundos.
 @pre tiempo menor que 86400 y mayor que 0.
 @return tiempo cambiado a horas, minutos y segundos.
+@post se almacenara lo introducido en horas, minutos y segundos.
 
 */
 void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
@@ -48,6 +50,7 @@ void intercambiar (int tiempo, int &horas, int &minutos, int &segundos){
 @param int horas, int minutos e int segundos.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void imprimirResultado (int horas, int minutos, int segundos){

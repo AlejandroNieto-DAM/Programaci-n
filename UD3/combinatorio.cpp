@@ -5,6 +5,9 @@ using namespace std;
 /*
 
 @brief Frase necesaria en la funcion FiltroAntiJaime.
+@pre debe estar activa la salida por pantalla.
+@post no tiene.
+@return no devuelve nada.
 
 */
 
@@ -18,6 +21,9 @@ void texto (){
 /*
 
 @brief Frase necesaria en la funcion FiltroAntiJaime.
+@pre debe estar activa la salida por pantalla.
+@post no tiene.
+@return no devuelve nada.
 
 */
 
@@ -34,7 +40,7 @@ void texto2 (){
 @param double n siendo un double para determinar si es correcto.
 @pre n > 0 siendo este un numero entero.
 @return retorna un valor correcto de Int para seguir con las operaciones.
-@post n será un numero mayor que 0 y entero.
+@post n será un numero entero filtrado necesario para seguir con el programa.
 
 */
 
@@ -77,7 +83,7 @@ double filtroAntiJaime(double n) {
 @param int n siendo un entero para determinar el factorial.
 @pre n > 0 siendo este un numero entero.
 @return retorna el factorial de n.
-@post acu será un numero entero positivo.
+@post acu almacenará el resultado del factorial.
 
 */
 
@@ -100,6 +106,7 @@ int factorial (int n) {
 @param int numero1 e int numero2 siendo enteros positivos para determinar el combinatorio.
 @pre numero1 y numero2 > 0 siendo estos un numero entero.
 @return retorna el resultado del combinatorio resultado.
+@post resultado almacenará el resultado del combinatorio.
 
 */
 

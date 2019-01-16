@@ -7,7 +7,7 @@ using namespace std;
 @param double x y double y numeros para ver el ambito de las variables.
 @pre x e y sean numeros validos para un double. 
 @return devuelve j para ver el cambio ocurrido dentro de la función.
-@post el resultado puede ser cualquier tipo de numero que se ajuste a un double.
+@post el resultado puede ser cualquier tipo de numero que se ajuste a un double e ira en la variable j.
 
 */
 

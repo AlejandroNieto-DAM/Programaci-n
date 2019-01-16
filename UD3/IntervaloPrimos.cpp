@@ -6,8 +6,9 @@ using namespace std;
 
 @brief Lee los numeros de entrada necesarios para el intervalo.
 @param int a e int b son los numeros del intervalo.
-@pre a < b para calcular bien el intervalo.
+@pre debe estar activa la entrada por teclado.
 @return no devuelve nada.
+@post a < b para calcular bien el intervalo.
 
 */
 
@@ -28,7 +29,7 @@ void leerIntervalo(int &a, int &b){
 @param int x e int y siendo el intervalo para calcular los primos.
 @pre x < y para el intervalo.
 @return devuelve el total de numeros primos en el intervalo.
-@post total debera ser un numero entero positivo o igual a 0.
+@post total almacenara el resultado del total de los primos contados en el intervalo.
 
 */
 
@@ -74,6 +75,7 @@ int calcularTotalPrimos(int x, int y){
 @param int totalIntervalo numero de total de primos en un intervalo.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 

@@ -5,8 +5,9 @@ using namespace std;
 
 @brief Lee los numeros de entrada necesarios para el intervalo.
 @param int numeroIntroducido1 e int numeroIntroducido2 que son valores respectivos para cada valor del intervalo.
-@pre numeroIntroducido1 < numeroIntroducido2.
+@pre debe estar activa la entrada por teclado.
 @return cambia el valor de numeroIntroducido1 y numeroIntroducido2.
+@post numeroIntroducido1 < numeroIntroducido2.
 
 */
 void leerNumero (int &numeroIntroducido1, int &numeroIntroducido2){
@@ -53,6 +54,7 @@ int calcularMCD (int &numero1, int &numero2){
 @param int resultado siendo este el resultado del m.c.d.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void imprimirResultado (int &resultado){

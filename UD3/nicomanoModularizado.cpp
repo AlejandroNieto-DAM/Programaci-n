@@ -5,8 +5,9 @@ using namespace std;
 
 @brief Lee un numero de entrada.
 @param int numeroIntroducido para calcular su cubo.
-@pre numeroIntroducido deberá ser un numero entero positivo.
+@pre debe estar activa la entrada por teclado.
 @return no devuelve nada.
+@post numeroIntroducido deberá ser un numero entero positivo.
 
 */
 void leerNumero (int &numeroIntroducido){
@@ -21,8 +22,9 @@ void leerNumero (int &numeroIntroducido){
 
 @brief Calcula el cubo del numero introducido anteriormente @n.
 @param int n para calcular su cubo.
-@pre n > 0 y entero.ç
+@pre n > 0 y entero.
 @return suma que es el resultado del cubo de @n
+@post suma guardará el valor del cubo del numero introducido.
 
 */
 int cubo (int &n){
@@ -51,6 +53,7 @@ int cubo (int &n){
 @param int resultado que es el cubo del numero introducido.
 @pre debe estar activa la salida por pantalla.
 @return no devuelve nada.
+@post no tiene.
 
 */
 void imprimirResultado (int &resultado){

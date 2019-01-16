@@ -7,6 +7,7 @@ using namespace std;
 @param int n para calcular su factorial.
 @pre n debe ser un numero entero positivo.
 @return acumulador que es el resultado del factorial de acuerdo al numero n.
+@post acumulador almacenará el resultado del factorial de dicho numero.
 
 */
 
