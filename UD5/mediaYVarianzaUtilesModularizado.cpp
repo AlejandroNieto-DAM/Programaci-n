@@ -6,7 +6,7 @@ using namespace std;
 @brief Lee la entrada para los espacios utilizados del vector.
 @param int util_nota para ver los espacios utilizados del vector.
 @pre debe estar activa la entrada por teclado.
-@return no devuleve nada.
+@return no devuelve nada.
 @post util_nota debe ser entre 1 y 100 para cumplir con la dimensión del vector.
 */
 
@@ -26,8 +26,8 @@ void LecturaUtil (int &util_nota){
 @brief Se introducen los valores del vector.
 @param int util_nota parar no movernos por los 100 espacios del vector y double nota[] para introducir los valores.
 @pre debe estar activa la entrada por teclado.
-@return no devuleve nada.
-@post .
+@return no devuelve nada.
+@post nota[] debe guardas los valores del vector.
 */
 
 void IntroducirValores(int util_nota, double nota[]){
@@ -40,6 +40,14 @@ void IntroducirValores(int util_nota, double nota[]){
     }
 }
 
+
+/*
+@brief Se calcula la media de los numeros introducidos en el vector anteriormente.
+@param int util_nota parar no movernos por los 100 espacios del vector, double nota[] para introducir los valores y double media para la media.
+@pre todas las variables mecionadas deben tener almacenado algun valor.
+@return no devuelve nada.
+@post media debe guardar la media de los datos del vector.
+*/
 void calculoMedia (int util_nota, double nota[], double &media){
 
     for(int i = 0; i < util_nota; i++){
@@ -52,6 +60,14 @@ void calculoMedia (int util_nota, double nota[], double &media){
 
 }
 
+
+/*
+@brief Se introducen los valores del vector.
+@param int util_nota, double nota[], double desviacion y double media.
+@pre haber calculado anteriormente la media de datos del vector.
+@return no devuelve nada.
+@post desviacion debe guardar el valor calculado.
+*/
 void calculoDesviacion (int util_nota, double nota[], double &desviación, double media){
 
     for(int i = 0; i < util_nota; i++){
@@ -64,6 +80,14 @@ void calculoDesviacion (int util_nota, double nota[], double &desviación, doubl
 
 }
 
+
+/*
+@brief Se introducen los valores del vector.
+@param int util_nota, double nota[], double varianza y double media.
+@pre media debe de haber sido calculada anteriormente.
+@return no devuelve nada.
+@post varianza debe guardar el valor calculado.
+*/
 void calculoVarianza (int util_nota, double nota[], double &varianza, double media){
 
     for(int i = 0; i < util_nota; i++){
@@ -76,6 +100,13 @@ void calculoVarianza (int util_nota, double nota[], double &varianza, double med
 
 }
 
+
+/*
+@brief Imprimir los resultados por pantalla.
+@param double desviacion, double varianza y double media.
+@pre debe estar activa la salida por pantalla.
+@return no devuelve nada.
+*/
 void imprimirResultados (double &media, double &desviación, double &varianza){
 
   	cout << "La nota media es " << media << endl;
