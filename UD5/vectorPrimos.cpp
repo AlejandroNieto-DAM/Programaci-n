@@ -66,11 +66,9 @@ void calcularVectorPrimos(const int vectorEnteros[], int util_v, int vectorPrimo
 
 	for(int i = 0; i < util_v; i++){
 
-		contador = vectorEnteros[i];
+		for(int z = 1; z <= vectorEnteros[i] ; z++){
 
-		for(int z = 1; z <= contador ; z++){
-
-			if(contador % z == 0){
+			if(vectorEnteros[i] % z == 0){
 
 				suma++;
 
@@ -80,7 +78,7 @@ void calcularVectorPrimos(const int vectorEnteros[], int util_v, int vectorPrimo
 
 		if(suma == 2){
 
-			vectorPrimos[util_v2] = contador;
+			vectorPrimos[util_v2] = vectorEnteros[i];
 			util_v2 += 1;
 
 		}
@@ -105,7 +103,7 @@ void imprimirPrimos(int util_v2, const int vectorPrimos[]){
 
 	for(int i = 0; i < util_v2; i++){
 
-		cout << vectorPrimos << endl;
+		cout << vectorPrimos[i] << endl;
 
 	}
 

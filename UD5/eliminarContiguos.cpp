@@ -58,14 +58,14 @@ void introducirVector(int util_v, char vector[]){
 void borrarRepetidosContiguos(int util_v, const char vector[], int &util_v2, char vectorNR[]){
 
 	vectorNR[0] = vector[0];
-	util_v2 = 1;
+	util_v2 ++;
 
 	for(int i = 1; i < util_v; i++){
 
 		if(vector[i] != vector[i-1]){
 
 			vectorNR[util_v2] = vector[i];
-			util_v2 += 1;
+			util_v2 ++;
 
 		}
 
@@ -88,17 +88,28 @@ void imprimirNR(int util_v2, const char vectorNR[]){
 
 	for(int i = 0; i < util_v2; i++){
 
-		cout << vectorNR << " ";
+		cout << vectorNR[i];
+
+		if(i < util_v2 - 1){
+			cout << ", ";
+		}
+		else{
+			cout << ".";
+		}
+
+
 
 	}
+
+	cout << endl;
 
 }
 
 int main(){
 
 	const int DIM = 100;
-	char vector[DIM] = {'a', 'a', 'b', 'b', 'c', 'c', 'd', 'f'}, vectorNR[DIM];
-	int util_v = 8, util_v2 = 0;
+	char vector[DIM], vectorNR[DIM];
+	int util_v = 0, util_v2 = 0;
 
 	leerUtil(util_v);
 	introducirVector(util_v, vector);
