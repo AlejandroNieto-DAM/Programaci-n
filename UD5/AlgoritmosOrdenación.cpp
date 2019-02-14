@@ -40,13 +40,19 @@ void OrdBurbuja (double v[], int util_v){
 
 /**
 
-*
+* @brief Algoritmo de ordenación.
+* @param v[] que tiene guardados unos elementos anteriormente guardados.
+* @param util_v que nos indica el numero de componentes utilizados en vector.
+* @pre util_v debe ser mayor que 0.
+* @pre v[] debe tener guardados valores en su interior.
+* @return no devuelve nada.
+* @post el vector quedará ordenado después de ejecutar el bucle.
 
 */
 
 void OrdInsercion (double v[], int util_v){
 
-	int zqda, i;
+	int izqa, i;
 	double valor;
 
 	for(izqa = 1; izqa < util_v; izqa++){
@@ -67,8 +73,18 @@ void OrdInsercion (double v[], int util_v){
 
 
 /**
-*
+
+* @brief Algoritmo de ordenación.
+* @param v[] que tiene guardados unos elementos anteriormente guardados.
+* @param util_v que nos indica el numero de componentes utilizados en vector.
+* @pre util_v debe ser mayor que 0.
+* @pre v[] debe tener guardados valores en su interior.
+* @return no devuelve nada.
+* @post el vector quedará ordenado después de ejecutar el bucle.
+
 */
+
+
 
 void OrdSeleccion (double v[], int util_v){
 

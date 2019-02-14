@@ -8,6 +8,20 @@ using namespace std;
 
 const int FIL = 20, COL = 30; //Dimensión de la matriz en filas y columnas.
 
+
+/**
+
+* @brief Introducimos el numero de filas y de columnas que definiran la matriz
+* @param utilFilas que pasamos por referencia ya que su valor va a ser cambiado.
+* @param utilColumnas que pasamos por referencia ya que su valor va a ser cambiado.
+* @pre utilFilas tiene que pasarse por referencia.
+* @pre utilColumnas tiene que pasarse por referencia.
+* @return no devuelve nada.
+* @post utilFilas será mayor que 0 y menor o igual que 20.
+* @post utilColumnas será mayor que 0 y menor o igual que 30.
+
+*/
+
 void introducirFILyCOL(int &utilFilas, int &utilColumnas){
 
 	do{
@@ -26,6 +40,21 @@ void introducirFILyCOL(int &utilFilas, int &utilColumnas){
 
 	} while((utilColumnas < 1) || (utilColumnas > COL));
 
+
+/**
+
+* @brief Procedimiento que sirve para rellenar la matriz.
+* @param vector[][] en quien introduciremos los valores.
+* @param util_fil que define el numero de filas de la matriz
+* @param util_col que define el numero de columnas de la matriz
+* @pre vector[][] debe de estar pasado por referencia.
+* @pre util_fil > 0 && < 20
+* @pre util_col > 0 && < 30
+* @return no devuelve nada.
+* @post vector[][] mantendra valores en su interior
+
+*/
+
 }
 
 void rellenarMatriz (double vector[][COL], int util_fil, int util_col){
@@ -43,6 +72,17 @@ void rellenarMatriz (double vector[][COL], int util_fil, int util_col){
 
 }
 
+
+/**
+
+* @brief Procedimiento para pedir al usuario un valor para buscarlo en la matriz.
+* @param buscado que almacenara el valor que vamos a buscar.
+* @pre buscado debe estar pasado por referencia.
+* @return no devuelve nada.
+* @post buscado contendrá el numero a buscar en la matriz.
+
+*/
+
 void numeroBuscar (double &buscado){
 
 	cout << USER << "Introduce un numero para buscarlo en la matriz anteriormente introducida: " << RESTORE;
@@ -50,6 +90,19 @@ void numeroBuscar (double &buscado){
 
 }
 
+/**
+
+* @brief Ordena los elementos de un vector.
+* @param v[][] que tiene guardados unos elementos anteriormente guardados.
+* @param util_fil que nos indica el numero de filas utilizadas en la matriz.
+* @param util_col que nos indica el numero de columnas de la matriz.
+* @pre util_col > 0 && < COL.
+* @pre util_fil > 0 && < FIL.
+* @pre v[][] debe tener guardados valores en su interior.
+* @return no devuelve nada.
+* @post el vector quedará ordenado después de ejecutar el bucle.
+
+*/
 void OrdInsercion (double v[][COL], int util_fil, int util_col){
 
 
@@ -83,6 +136,18 @@ void OrdInsercion (double v[][COL], int util_fil, int util_col){
 
 }
 
+/**
+
+* @brief Imprime la matriz completa.
+* @param v[][] que mostraremos.
+* @param util_filas que tiene el numero de filas utilizadas en la matriz.
+* @param util_columnas que tiene el numero de columnas utilizadas en la matriz.
+* @pre v[][] que debe haber sido inicilizado.
+* @pre util_col > 0 && < COL.
+* @pre util_fil > 0 && < FIL.
+* @return no devuelve nada.
+
+*/
 void imprimirMatriz (double vector[][COL], int util_filas, int util_columnas){
 
 	for(int f = 0; f < util_filas; f++){
@@ -99,6 +164,27 @@ void imprimirMatriz (double vector[][COL], int util_filas, int util_columnas){
 
 }
 
+/**
+
+* @brief Procedimiento para buscar el numero anteriormente introducido a buscar por el usuario.
+* @param m[][] que tiene valores en su interior.
+* @param util_fil que nos indica el numero de filas de la matriz.
+* @param util_col que nos indica el numero de columnas de la matriz.
+* @param buscado que tiene el numero a buscar.
+* @param encontrado que nos indicara si se encuentra o no el valor.
+* @param fil_enc que almacenará el valor de la fila donde se encuentre el numero buscado.
+* @param col_enc que almacenará el valor de la columna donde se encuentre el numero buscado.
+* @pre m[][] que debe de mantener valores en su interior.
+* @pre util_fil debe de haber sido inicializado.
+* @pre util_col debe de haber sido inicializado.
+* @pre buscado que mantendrá el valor anteriormente introducido por el usuario.
+* @pre encontrado debe de pasarse por referencia.
+* @pre fil_enc que pasamos por referencia ya que su valor cambiará
+* @pre col_enc que pasamos por referencia ya que su valor cambiará
+* @return no devuelve nada.
+* @post 
+
+*/
 void buscarNumero (double m[][COL], int util_fil, int util_col, double buscado,bool &encontrado, int &fil_enc, int &col_enc){
 
 	for(int f = 0; !encontrado && f < util_fil; f++){
@@ -122,6 +208,19 @@ void buscarNumero (double m[][COL], int util_fil, int util_col, double buscado,b
 
 }
 
+/**
+
+* @brief Imprime la posicion del numero buscado.
+* @param encontrado que segun su valor mostrara un resultado u otro.
+* @param buscado que es el valor que se estaba buscando.
+* @param fil_enc que pasamos por copia para mostrar su valor.
+* @param col_enc que pasamos por copia para mostrar su valor.
+* @pre encontrado que segun su valor mostrara un resultado u otro.
+* @pre fil_enc que almacena la fila en que se encuentra el valor buscado.
+* @pre col_enc que almacena la columna en que se encuentra el valor buscado
+* @return no devuelve nada.
+
+*/
 void imprimirResultado (bool encontrado, double buscado, int fil_enc, int col_enc){
 
 	//cout << DEBUG << "encontrado: " << encontrado << RESTORE << endl;
