@@ -73,7 +73,7 @@ void calculaModas(int util_v, const int array[], int &util_moda, int moda[]){
 
 		} 
 
-		//cout << DEBUG << "Util_moda " << util_moda << RESTORE << endl;
+		cout << DEBUG << "Util_moda " << util_moda << RESTORE << endl;
 
 
 	}

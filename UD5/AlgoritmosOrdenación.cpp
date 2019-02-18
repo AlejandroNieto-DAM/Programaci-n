@@ -84,8 +84,6 @@ void OrdInsercion (double v[], int util_v){
 
 */
 
-
-
 void OrdSeleccion (double v[], int util_v){
 
 	int pos_min = 0;
@@ -109,4 +107,40 @@ void OrdSeleccion (double v[], int util_v){
 
 		}
 	}
+}
+
+/**
+
+* @brief Algoritmo de ordenación.
+* @param v[] que tiene guardados unos elementos anteriormente guardados.
+* @param util_v que nos indica el numero de componentes utilizados en vector.
+* @pre util_v debe ser mayor que 0.
+* @pre v[] debe tener guardados valores en su interior.
+* @return no devuelve nada.
+* @post el vector quedará ordenado después de ejecutar el bucle.
+
+*/
+int BuscaBinaria (const double v[], int util_v, double buscado){
+
+	int izq = 0;
+	int dch = util_v - 1;
+	int centro = (izq + dch)/2;
+
+	while((izq <= dch) && (v[centro] != buscado)){
+
+		if(buscado <v[centro])
+			dch = centro - 1;
+
+		else
+			izq = centro + 1;
+
+		centro = (izq + dch)/2;
+	}
+
+	if(izq > dch)
+		return -1;
+	else
+		return centro;
+
+	
 }
