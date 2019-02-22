@@ -35,14 +35,30 @@ void fibonacci1(int n){
 
 }
 
-int fibonacci2 (int n){
+int fibonacci2 (int n, int num1, int num2){
 
 	int suma = 0; 
-	int num1 = 0;
-	int num2 = 1;
+	int sumaF = 0;
 
-	
 
+	if(n > 3){
+
+		suma = num1 + num2;
+		//cout << "suma : " << suma << endl; 
+		num1 = num2;
+		num2 = suma;
+
+		//cout << "n: " << n << endl;
+
+		sumaF = fibonacci2(n - 1, num1, num2);
+
+	} else {
+
+		sumaF = num1 + num2;
+		
+	}
+
+	return sumaF;
 
 }
 
@@ -50,6 +66,9 @@ int fibonacci2 (int n){
 int main(){
 	
 	int numero = 0;
+	int num1 = 0;
+	int num2 = 1;
+	int fibonacci = 0;
 
 	cout << "Introduce un numero para mostrar tantos numeros en la sucesion de Fibonacci: ";
 	cin >> numero;
@@ -57,7 +76,8 @@ int main(){
 	cout << "Fibonacci (iterativo): ";
 	fibonacci1(numero);
 
-	cout << "Fibonacci (recursivo): ";
-	fibonacci2(numero);
+	fibonacci = fibonacci2(numero, num1, num2);
+	cout << "Fibonacci (recursivo): " << fibonacci << endl;
+	 
 
 }
