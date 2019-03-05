@@ -8,6 +8,28 @@
 #include <iostream>
 #include <string.h>
 using namespace std;
+/***************************************
+** Definición del TIPO DE DATO Fecha **
+****************************************/
+
+struct Fecha{
+
+    unsigned short int dia;
+    unsigned short int mes;
+    unsigned short int anio;
+    
+};
+
+/**********************************************************
+ ** Definición de sus Prototipos del Tipo de Dato Fecha **
+ **********************************************************/
+void setEdad(Fecha &a, unsigned short int dia);
+void setMes(Fecha &a, unsigned short int mes);
+void setAnio(Fecha &a, unsigned short int anio);
+unsigned short int getDia(const Fecha &a);
+unsigned short int getMes(const Fecha &a);
+unsigned short int getAnio(const Fecha &a);
+
 
 /***************************************
 ** Definición del TIPO DE DATO Alumno **
@@ -17,14 +39,15 @@ struct Alumno{
     unsigned int edad;
     char nombres_asignaturas[6][4];
     int notas[6]; //vector con las notas
+    Fecha matricula;
 };
 
 /**********************************************************
  ** Definición de sus Prototipos del Tipo de Dato Alumno **
  **********************************************************/
-string getNombre(Alumno &a);
-int getTamanioNombre(Alumno &a);
-unsigned int getEdad(int edad);
+void getNombre(const Alumno &a, char cadena[]);
+int getTamanioNombre(const Alumno &a);
+unsigned int getEdad(const Alumno &a);
 void setNombre(Alumno &a, char nombre[]);
 void setUtilNombre(Alumno &a, int util_nombre);
 void setEdad(Alumno &a, unsigned int edad);
@@ -32,23 +55,75 @@ void setNotas(Alumno &a, int notas[]);
 void setNombresAsignaturas(Alumno &a);
 void printAlumno(const Alumno &a);
 void intercambiarAlumnos(Alumno &a, Alumno &b);
-void calcularMediaCalificacionesAlumno(Alumno &a);
+float calcularMediaCalificacionesAlumno(Alumno &a);
+void setFechaAlumno(Alumno &a, unsigned short int dia, unsigned short int mes, unsigned short anio);
+void getFecha(const Alumno &a);
+
+/**************************************************************
+ ** Implementación de los Prototipos del Tipo de Dato Fecha **
+ **************************************************************/
+
+/**
+ * @brief Asigna a la variable estructurada de tipo Fecha, el año que se le pasa como parámetro.
+ * @pre El año debe de estar filtrado entre 1900 y 2019.
+ */
+void setAnio(Fecha &a, unsigned short int anio){
+    a.anio = anio;
+}
+
+/**
+ * @brief Asigna a la variable estructurada de tipo Fecha, el mes que se le pasa como parámetro.
+ * @pre El mes debe de estar filtrado entre 1 y 12.
+ */
+void setMes(Fecha &a, unsigned short int mes){
+    a.mes = mes;
+}
+
+/**
+ * @brief Asigna a la variable estructurada de tipo Fecha, el dia que se le pasa como parámetro.
+ * @pre El dia debe de estar filtrado entre 1 y 31.
+ */
+void setDia(Fecha &a, unsigned short int dia){
+    a.dia = dia;
+}
+
+unsigned short int getDia(const Fecha &a){
+    return a.dia;
+}
+
+unsigned short int getMes(const Fecha &a){
+    return a.mes;
+}
+
+unsigned short int getAnio(const Fecha &a){
+    return a.anio;
+}
+
+void getFecha(const Alumno &a){
+    cout << getDia(a.matricula) << "/" << getMes(a.matricula) << "/" << getAnio(a.matricula);
+}
+
 
 
 /**************************************************************
  ** Implementación de los Prototipos del Tipo de Dato Alumno **
  **************************************************************/
+
+void setFechaAlumno (Alumno &a, unsigned short int dia, unsigned short int mes, unsigned short anio){
+    setDia(a.matricula, dia);
+    setMes(a.matricula, mes);
+    setAnio(a.matricula, anio);
+}
+
 /**
  * @brief Devuelve por copia la cadena de caracteres de una variable estructurada de tipo Alumno.
  */
-string getNombre(Alumno &a){
-	string nombre;
+void getNombre(const Alumno &a, char cadena[]){
 
-	for(int i = 0; i < 31; i++){
-		nombre += a.nombre[i];
-	}
+    for(int i = 0; i < 31; i++){
+        cadena[i] = a.nombre[i];
+    }
 
-	return nombre;
 }
 
 /**
@@ -56,22 +131,22 @@ string getNombre(Alumno &a){
  */
 int getTamanioNombre(Alumno &a){
 
-	int tamaño = 0;
+	int tamanio = 0;
 
-	while(a.nombre[tamaño] != '\0'){
+	while(a.nombre[tamanio] != '\0'){
 
-		tamaño++;
+		tamanio++;
 
 	}
 
-	return tamaño;
+	return tamanio;
 }
 
 /**
  * @brief Devuelve la edad una variable estructurada de tipo Alumno.
  */
-unsigned int getEdad(int edad){
-    return edad;
+unsigned int getEdad(const Alumno &a){
+    return a.edad;
 }
 
 /**
@@ -122,11 +197,16 @@ void printAlumno(const Alumno &a){
     //OBSERVAR EL USO DE LOS MÓDULOS GET VS NO UTILIZARLOS...
     //¿QUÉ PASARÍA SI CAMBIÁSEMOS EL NOMBRE DEL VECTOR DE NOTAS?
 
-    //Creo una variable nueva para pasar el miembro.
-    Alumno copia = a;
+    //Creo una variable nueva para guardar el nombre.
+    char cadena[31];
+ 
+    getNombre(a, cadena);
 
-    cout << "Nombre Alumno: " << getNombre(copia) << endl;
-    cout << "Edad: " << getEdad(a.edad) << endl;
+    cout << "Nombre Alumno: " << cadena << endl;
+    cout << "Fecha matricula: ";
+    getFecha(a);
+    cout << endl;
+    cout << "Edad: " << getEdad(a) << endl;
     cout << "-----Calificaciones-----" << endl;
     for(int i=0; i < 6; i++)
         cout << " - " << a.nombres_asignaturas[i] << ": " << a.notas[i] << endl;
@@ -152,11 +232,11 @@ void intercambiarAlumnos(Alumno &a, Alumno &b){
 /**
  * @brief Calcula y devuelve la media de calificaciones de una variable de tipo Alumno.
  */
-void calcularMediaCalificacionesAlumno(Alumno &a){
+float calcularMediaCalificacionesAlumno(Alumno &a){
 
 	float suma = 0;
 
-	cout << "Calculando la media de las calificaciones de " << a.nombre << " : ";
+	
 
 	for(int i = 0; i < 6; i++){
 
@@ -169,9 +249,7 @@ void calcularMediaCalificacionesAlumno(Alumno &a){
 
 	//cout << "debug suma: " << suma << endl;
 
-	cout << suma << endl;
-
-	cout << endl;
+	return suma;
     
 }
 
@@ -188,6 +266,7 @@ int main(){
     
     //Preparo los datos del Alumno Berrios
     setNombre(Berrios, nombreberrios);
+    setFechaAlumno(Berrios, 12,2,2000);
     setEdad(Berrios, 22);
     setNombresAsignaturas(Berrios);
     setNotas(Berrios, notasberrios);
@@ -195,6 +274,7 @@ int main(){
     
     //Preparo los datos del Alumno Jaime
     setNombre(Jaime, nombrejaime);
+    setFechaAlumno(Berrios, 13,9,2014);
     setEdad(Jaime, 23);
     setNombresAsignaturas(Jaime);
     setNotas(Jaime, notasjaime);
@@ -216,7 +296,14 @@ int main(){
     //Para volverlos a poner como estaban antes y que no estén cambiados.
     intercambiarAlumnos(Berrios, Jaime);
     
+
+    char cadena[31];
     // 2) Probamos Calcular Calificación Media de los Alumnos y las mostramos por pantalla.
-    calcularMediaCalificacionesAlumno(Jaime);
-    calcularMediaCalificacionesAlumno(Berrios);
+
+    getNombre(Jaime, cadena);
+    cout << "Calculando la media de las calificaciones de " << cadena << " : " << calcularMediaCalificacionesAlumno(Jaime) << endl;
+
+    getNombre(Berrios, cadena);
+    cout << "Calculando la media de las calificaciones de " << cadena << " : " << calcularMediaCalificacionesAlumno(Berrios) << endl;
+
 }

@@ -9,6 +9,7 @@ void hanoi(int fichas, int origen, int destino, int auxiliar){
 		cout << "Mover ficha de " << origen << " a " << destino << endl;
 		hanoi(fichas - 1, auxiliar, destino, origen);
 	}
+	
 }
 
 void introducirPiezas (int &fichas){
