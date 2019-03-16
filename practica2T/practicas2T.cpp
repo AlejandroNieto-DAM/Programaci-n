@@ -184,18 +184,34 @@ void setRuta(Foto &a){
 
 }
 
+/**
+
+* @ brief Asigna a una foto su tipo que se le introduce.
+
+*/
 void setTipo(Foto &a){
 
-	cout << "Introduce el tipo: ";
+	cout << "Introduce el tipo (Ejem: png, jpeg...): ";
 	cin >> a.tipo;
 
 }
+
+/**
+
+* @brief Asigna a una foto su tamaño que se le introduce.
+
+*/
 void setTamanio(Foto &a){
 
 	cout << "Introduce el tamaño: ";
 	cin >> a.tamanio;
 }
 
+/**
+
+* @ brief Módulo que asigna a una posicion del vector de fotos sus correspondientes miembros.
+
+*/
 void setFoto(Foto *a, int util){
 
 	setRuta(a[util]);
@@ -205,6 +221,17 @@ void setFoto(Foto *a, int util){
  
 }
 
+/**
+
+* @brief Aumenta la dimension y los utiles del vector de fotos de un usuario conforme se van introduciendo más fotos.
+* @param *p que es el vector de fotos de un usuario que vamos a aumentar.
+* @param dimension que es la dimension que tiene el vector de fotos del usuario.
+* @param util que es el numero de fotos que hay guardadas en el vector en el momento.
+* @pre Debe de haber un vector de fotos inicializado en el usuario con fotos adentro.
+* @return devuelve una direccion de memoria de tipo Foto.
+* @post La dimension y el util habrán crecido a la misma vez dejando asi un espacio para introducir otra foto.
+
+*/
 Foto* resizeFoto(Foto *p, int &dimension, int &util){
 
 	int nuevaDim = dimension + 1;
@@ -238,17 +265,24 @@ Foto* resizeFoto(Foto *p, int &dimension, int &util){
 
 }
 
+/**
 
+* @brief Módulo que inicializa el miembro v_fotos del usuario si este tiene fotos y las introduce dentro del vector.
+* @param *a que es el usuario al que le vamos a inicializar su miembro v_fotos
+* @pre la direccion de memoria de este usuario debe de estar en alguna posicion del miembro punteroapuntero de miTabla tipo TablaUsuarios.
+* @return no devuelve nada.
+* @post El miembro v_fotos del Usuario quedara inicializado si este tiene fotos y tendra la opcion de introducir o no las fotos en este momento.
+
+*/
 void setVectorFotos(Usuario *a){
 
-	unsigned short int opcion = 0;
-	unsigned short int opcion2 = 0;
+	int opcion = 0;
 
 	cout << "Este usuario tiene fotos? [1]Si, [2]No. " << endl;
 	cin >> opcion;
 
+	
 	if(opcion == 1){
-
 		Foto *v = 0;
 		v = new Foto [1];
 
@@ -256,40 +290,33 @@ void setVectorFotos(Usuario *a){
 
 		a->totalFotosUsuario = 0;
 		a->dim_vfotos = 1;
+	} else {
+
+		a->v_fotos = 0;
+
+		a->totalFotosUsuario = 0;
+		a->dim_vfotos = -1;
+
+	}
 
 		//a->v_fotos = inicializarVectorFotos(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
+	
+		//a->v_fotos = resizeFoto(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
 
-	}
+	
 
-
-	if(opcion == 1){
-
-		do{
-
-			cout << "Quiere añadir foto? [1]Si, [2]No: ";
-			cin >> opcion2;
-			cout << endl;
-
-			if(opcion2 == 1){
-				//cout << "util fuera: " << a->totalFotosUsuario << endl;
-				//cout << "dim fuera: " << a->dim_vfotos << endl;
-				setFoto(a->v_fotos, a->totalFotosUsuario);
-				//cout << "sale " << endl;
-
-				//cout << "dim: " << a->dim_vfotos << endl;
-				//cout << "totalf: " << a->totalFotosUsuario << endl;
-				a->v_fotos = resizeFoto(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
-				//cout << "dim: " << a->dim_vfotos << endl;
-				//cout << "totalf: " << a->totalFotosUsuario << endl;
-			}
-
-		}while(opcion2 != 2);
-
-	}
 
 }
 
+/**
 
+* @brief Módulo que llama a otros modulos para asignar al usuario cada uno de sus miembros.
+* @param *a que es el usuario al que queremos introducir valores.
+* @pre Este usuario debe de haberse inicializado con anterioridad.
+* @return no devuelve nada.
+* @post cada uno de los miembros del usuario tomara el valor introducido.
+
+*/
 void setUsuario(Usuario *a){
 
 	setLogin(a);
@@ -343,7 +370,7 @@ void getFotos(Usuario *a){
 
 	int opcion = 0;
 
-	if(a->totalFotosUsuario > 0){
+	if(a->totalFotosUsuario > 1){
 		cout << "Quieres ver las fotos que guarda el usuario? [1]Si, [Press any int key]No: ";
 		cin >> opcion;
 	}
@@ -367,6 +394,27 @@ void getUsuario(Usuario *a){
 	cout << endl;
 
 
+
+}
+
+void getUsuarioSinFotos(Usuario *a){
+
+	cout << "USUARIO" << endl;
+	cout << "Login: " << getLogin(a) << endl;
+	cout << "Nombre: " << getNombre(a) << endl;
+	cout << "Apellido: " << getApellido(a) << endl;
+	cout << "Perfil del Usuario: " << getPerfil(a) << endl; 
+	cout << endl;
+
+
+
+}
+
+void getFotosUsuario(Usuario *a){
+	
+	cout << "USUARIO" << endl;
+	cout << "Login: " << getLogin(a) << endl;
+	getFotos(a); 
 
 }
 
@@ -510,6 +558,24 @@ void imprimirTabla(Usuario **a, int util){
 
 }
 
+void imprimirTablaSinFotos(Usuario **a, int util){
+
+
+	for(int i = 0; i < util; i++){
+		getUsuarioSinFotos(a[i]);
+	}	
+
+}
+
+void imprimirTablaUser(Usuario **a, int pos){
+
+
+	getUsuario(a[pos]);
+
+
+}
+
+
 void asignarACero(Usuario *a){
 
 	
@@ -579,7 +645,7 @@ void eliminarUsuario(Usuario **a, int &dimension, int &util){
 	int opcion = 0;
 	bool encontrado = false;
 
-	imprimirTabla(a, util);
+	imprimirTablaSinFotos(a, util);
 
 	cout << "Que usuario quiere eliminar? Escriba su login a continuacion: "; cin >> login;
 
@@ -612,7 +678,7 @@ void buscarUsuarioPorLogin(Usuario **q, int dimension, int util){
 	bool encontrado = false;
 	int posicion = 0;
 
-	imprimirTabla(q, util);
+	imprimirTablaSinFotos(q, util);
 
 	cout << "Que usuario quiere buscar? Escriba su login a continuacion: "; cin >> login;
 
@@ -638,6 +704,122 @@ void buscarUsuarioPorLogin(Usuario **q, int dimension, int util){
 }
 
 void ordenarTablaPorTotalFotos(Usuario **q, int &dimension, int &util){
+
+	Usuario *auxiliar;
+
+	auxiliar = new Usuario;
+
+
+	for(int i = 0; i < util; i++){
+		for(int j = 0; j < util; j++){
+
+			if(q[i]->totalFotosUsuario > q[j]->totalFotosUsuario){
+
+				auxiliar = q[i];
+				q[i] = q[j];
+				q[j] = auxiliar;
+
+			}
+
+		}
+	}
+
+	imprimirTablaSinFotos(q, util);
+
+}
+
+void fotoAUsuario(Usuario *a){
+			
+		//cout << "util fuera: " << a->totalFotosUsuario << endl;
+		//cout << "dim fuera: " << a->dim_vfotos << endl;
+		setFoto(a->v_fotos, a->totalFotosUsuario);
+		//cout << "sale " << endl;
+
+		//cout << "dim: " << a->dim_vfotos << endl;
+		//cout << "totalf: " << a->totalFotosUsuario << endl;
+		a->v_fotos = resizeFoto(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
+		//cout << "dim: " << a->dim_vfotos << endl;
+		//cout << "totalf: " << a->totalFotosUsuario << endl;
+			
+
+
+}
+
+
+void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
+
+	int posicion = 0;
+	int opcion = 0;
+	string login;
+	bool encontrado = false;
+
+	imprimirTablaSinFotos(q, util);
+	do{
+		cout << "A que usuario quieres introducirle la foto? Introduce su login: "; 
+		cin >> login;
+
+		for(int i = 0; i < util || encontrado == false; i++){
+
+				//cout << "iteracion: " << i << endl;
+
+				if(login == q[i]->login){
+					encontrado = true;
+					posicion = i;
+				}
+
+		}
+
+	}while(encontrado == false);
+
+	if(q[posicion]->dim_vfotos != -1){
+		do{
+
+			fotoAUsuario(q[posicion]);
+
+			cout << "Quiere introducir otra foto? [1]Si, [2]No..."; cin >> opcion;
+
+		}while(opcion == 1);
+	} else {
+		cout << "Este usuario no tiene fotos :(( " << endl;
+	}
+
+
+}
+
+void imprimirFotosUsuario(Usuario **q, int &dimension, int &util){
+
+	
+	int posicion = 0;
+	bool encontrado = false;
+	string login;
+
+	imprimirTablaSinFotos(q, util);
+
+	do{
+		cout << "De que usuario quieres ver la/s foto/s? Introduce su login: "; 
+		cin >> login;
+
+	
+		for(int i = 0; i < util || encontrado == false; i++){
+
+				//cout << "iteracion: " << i << endl;
+
+				if(login == q[i]->login){
+					encontrado = true;
+					posicion = i;
+				}
+
+		}
+	}while(encontrado == false);
+
+	if(q[posicion]->dim_vfotos != -1){
+		imprimirTablaUser(q, posicion);
+	} else {
+		cout << "Este usuario no tiene fotos :(( " << endl;
+	}
+
+
+
 
 }
 
@@ -776,9 +958,9 @@ void menu(){
 
 		case 6: buscarUsuarioPorLogin(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
 		case 7: ordenarTablaPorTotalFotos(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
-		//case 8: aniadirFotoAUsuario(); break;
+		case 8: aniadirFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
 		//case 9: eliminarFotoAUsuario(); break;
-		//case 10: imprimirFotosUsuario(); break;
+		case 10: imprimirFotosUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
 		//case 11: busquedaDeterminada(); break;
 		case 12: cout << "******** Gracias por haber utilizado el programa :) *********" << endl; break;
 
