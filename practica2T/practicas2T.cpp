@@ -15,6 +15,22 @@ struct Foto{
     
 };
 
+/********************************************************
+ ** Definición de sus Prototipos del Tipo de Dato Foto **
+ ********************************************************/
+void setRuta(Foto &a);
+void setTipo(Foto &a);
+void setTamanio(Foto &a);
+void setFoto(Foto *a, int util);
+string getRuta(Foto &a);
+string getTipo(Foto &a);
+unsigned long int getTamanio(Foto &a);
+void getFoto(Foto *a, int util);
+
+
+
+
+
 /****************************************
 ** Definición del TIPO DE DATO Usuario **
 *****************************************/
@@ -31,6 +47,27 @@ struct Usuario{
     
 };
 
+/***********************************************************
+ ** Definición de sus Prototipos del Tipo de Dato Usuario **
+ ***********************************************************/
+void setNombre(Usuario *a);
+void setApellido(Usuario *a);
+void setLogin(Usuario *a);
+void setPerfil(Usuario *a);
+Foto* resizeFoto(Foto *p, int &dimension, int &util);
+void setVectorFotos(Usuario *a);
+void setUsuario(Usuario *a);
+string getLogin(const Usuario *a);
+string getNombre(const Usuario *a);
+string getPerfil(const Usuario *a);
+string getApellido(const Usuario *a);
+void getFotos(Usuario *a);
+void getUsuario(Usuario *a);
+Usuario* iniciaPersona(Usuario *a);
+
+
+
+
 /**********************************************
 ** Definición del TIPO DE DATO TablaUsuarios **
 ***********************************************/
@@ -42,31 +79,75 @@ struct TablaUsuarios{
     
 };
 
+/*****************************************************************
+ ** Definición de sus Prototipos del Tipo de Dato TablaUsuarios **
+ *****************************************************************/
+Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util);
+Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util);
+Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util);
+void imprimirTabla(Usuario **a, int util);
+void buscarUsuarioPorLogin(Usuario **q, int dimension, int util);
+TablaUsuarios* inicializarTabla();
+void menu();
+
+/**
+
+* @brief Asigna un nombre que se introduce a un usuario.
+
+*/
 void setNombre(Usuario *a){
 	cout << "Introduce el nombre: ";
 	cin >> a->nombre;
 	cout << endl;
-
 }
+
+/**
+
+* @brief Asigna un apellido que se introduce a un usuario.
+
+*/
 void setApellido(Usuario *a){
 	cout << "Introduce el apellido: ";
 	cin >> a->apellido;
 	cout << endl;
 }
+
+/**
+
+* @brief Asigna un Login único que se introduce a un usuario.
+
+*/
 void setLogin(Usuario *a){
 	cout << "Introduce el login: ";
 	cin >> a->login;
 	cout << endl;
 }
-void setPerfil(Usuario *a){
 
-	
-	cout << "Introduce el perfil_usuario [Admin] o [User]: ";
-	cin >> a->perfil_usuario;
-	cout << endl;
+/**
+
+* @brief Asigna un perfil_usuario que se introduce al usuario filtrandolo ya que solo puede ser Admin o User.
+
+*/
+void setPerfil(Usuario *a){
+	string admin = "Admin";
+	string user = "User";
+	bool correcto = true;
+	do{
+
+		correcto = true;
+
+		cout << "Introduce el perfil_usuario [Admin] o [User]: ";
+		cin >> a->perfil_usuario;
+		cout << endl;
+
+		if(a->perfil_usuario != admin && a->perfil_usuario != user){
+			correcto = false;
+			cout << "El perfil_usuario solo puede ser [Admin] o [User], Try again...";
+		}
+
+	}while(correcto == false);
 	
 }
-
 
 
 
@@ -91,49 +172,45 @@ void setPerfil0(Usuario *a){
 
 
 
+/**
 
+* @ brief Asigna a una foto una ruta que se le introduce.
 
-void setRuta(Foto *a){
+*/
+void setRuta(Foto &a){
 
-	cout << "Introduce la ruta: ";
-	cin >> a->ruta;
+	cout << "Introduce la ruta (Ejem: home/cristorey/Escritorio/imagen.png) : ";
+	cin >> a.ruta;
 
 }
 
-void setTipo(Foto *a){
+void setTipo(Foto &a){
 
 	cout << "Introduce el tipo: ";
-	cin >> a->tipo;
+	cin >> a.tipo;
 
 }
-void setTamanio(Foto *a){
+void setTamanio(Foto &a){
 
 	cout << "Introduce el tamaño: ";
-	cin >> a->tamanio;
+	cin >> a.tamanio;
 }
 
-void setFoto(Foto *a){
+void setFoto(Foto *a, int util){
 
-	Foto *b;
-	b = new Foto;
+	setRuta(a[util]);
+	setTipo(a[util]);
+	setTamanio(a[util]);
 
-	setRuta(b);
-	setTipo(b);
-	setTamanio(b);
-
-	a = b;
-
-	delete b;
-	b = 0;
  
 }
 
-void resizeFoto(Foto *p, int &dimension, int &util){
+Foto* resizeFoto(Foto *p, int &dimension, int &util){
 
 	int nuevaDim = dimension + 1;
 
 	Foto *a = 0;
-	a = new Foto [nuevaDim];
+	a = new Foto[nuevaDim];
 
 	if (a == 0){
         cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
@@ -141,7 +218,7 @@ void resizeFoto(Foto *p, int &dimension, int &util){
     }
 
 
-	for(int i = 0; i < util; i++){
+	for(int i = 0; i < dimension; i++){
 		a[i] = p[i];
 	}
 
@@ -150,60 +227,17 @@ void resizeFoto(Foto *p, int &dimension, int &util){
 	delete [] p;
 	//cout << "asig: " << endl;
 
-	dimension = nuevaDim;
+	dimension++;
 	util++;
 
 	p = a;
 
 	a = 0;
 
-}
-
-/**
-*
-*/
-
-void inicializarVectorFotos(Foto *a, int &dimension, int &util){
-
-	Foto *v = 0;
-	v = new Foto [1];
-
-	dimension = 1;
-	util = 0;
-
-	if (v == 0){
-        cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-        exit(-1);
-    }
-
-
-
-    delete [] a;
-
-    //cout << a << endl;
-    //cout << v << endl;
-	a = v;
-
-	v = 0;
-	//cout << a << endl;
-
+	return p;
 
 }
 
-void aniadirFotoAUsuario(Foto *p, int &dimension, int &util){
-
-
-	setFoto(&(p[util]));
-	//cout << "sale " << endl;
-	
-	cout << "dim: " << dimension << endl;
-	cout << "util: " << util << endl;
-	resizeFoto(p, dimension, util);
-	cout << "dim: " << dimension << endl;
-	cout << "util: " << util << endl;
-
-
-}
 
 void setVectorFotos(Usuario *a){
 
@@ -214,7 +248,16 @@ void setVectorFotos(Usuario *a){
 	cin >> opcion;
 
 	if(opcion == 1){
-		inicializarVectorFotos(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
+
+		Foto *v = 0;
+		v = new Foto [1];
+
+		a->v_fotos = v;
+
+		a->totalFotosUsuario = 0;
+		a->dim_vfotos = 1;
+
+		//a->v_fotos = inicializarVectorFotos(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
 
 	}
 
@@ -227,8 +270,18 @@ void setVectorFotos(Usuario *a){
 			cin >> opcion2;
 			cout << endl;
 
-			if(opcion2 == 1)
-				aniadirFotoAUsuario(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
+			if(opcion2 == 1){
+				//cout << "util fuera: " << a->totalFotosUsuario << endl;
+				//cout << "dim fuera: " << a->dim_vfotos << endl;
+				setFoto(a->v_fotos, a->totalFotosUsuario);
+				//cout << "sale " << endl;
+
+				//cout << "dim: " << a->dim_vfotos << endl;
+				//cout << "totalf: " << a->totalFotosUsuario << endl;
+				a->v_fotos = resizeFoto(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
+				//cout << "dim: " << a->dim_vfotos << endl;
+				//cout << "totalf: " << a->totalFotosUsuario << endl;
+			}
 
 		}while(opcion2 != 2);
 
@@ -262,26 +315,29 @@ string getPerfil(const Usuario *a){
 }
 
 
-string getRuta(Foto *a){
-	return a->ruta;
+string getRuta(Foto &a){
+	return a.ruta;
 }
-string getTipo(Foto *a){
-	return a->tipo;
+string getTipo(Foto &a){
+	return a.tipo;
 }
-unsigned long int getTamanio(Foto *a){
-	return a->tamanio;
+unsigned long int getTamanio(Foto &a){
+	return a.tamanio;
 }
 
 void getFoto(Foto *a, int util){
 
 	for(int i = 0; i < util; i++){
 		cout << "Foto: " << i + 1 << endl;
-		cout << "Ruta: " << getRuta(&(a[i])) << endl;
-		cout << "Tipo: " << getTipo(&(a[i])) << endl;
-		cout << "Tamaño que ocupa: " << getTamanio(&(a[i])) << endl;
+		cout << "Ruta: " << getRuta(a[i]) << endl;
+		cout << "Tipo: " << getTipo(a[i]) << endl;
+		cout << "Tamaño que ocupa: " << getTamanio(a[i]) << endl;
 		cout << endl;
 	}
 }
+
+
+
 
 void getFotos(Usuario *a){
 
@@ -293,7 +349,7 @@ void getFotos(Usuario *a){
 	}
 
 	if(opcion == 1)
-		getFoto(a->v_fotos, a->dim_vfotos);
+		getFoto(a->v_fotos, a->totalFotosUsuario);
 
 }
 
@@ -308,7 +364,6 @@ void getUsuario(Usuario *a){
 	cout << "Apellido: " << getApellido(a) << endl;
 	cout << "Perfil del Usuario: " << getPerfil(a) << endl;
 	getFotos(a); 
-
 	cout << endl;
 
 
@@ -318,7 +373,7 @@ void getUsuario(Usuario *a){
 /**
 *
 */
-void resizeAumentar(Usuario **p, int &tuplas, int &util){
+Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
 
 	int nuevaDim = tuplas + 1;
 
@@ -339,9 +394,12 @@ void resizeAumentar(Usuario **p, int &tuplas, int &util){
 	tuplas = nuevaDim;
 	util++;
 
+
 	p = a;
 
 	a = 0;
+
+	return p;
 
 
 
@@ -351,7 +409,7 @@ void resizeAumentar(Usuario **p, int &tuplas, int &util){
 /**
 *
 */
-void resizeDisminuir(Usuario **p, int &tuplas, int &util){
+Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 
 	int nuevaDim = tuplas - 1;
 
@@ -376,7 +434,7 @@ void resizeDisminuir(Usuario **p, int &tuplas, int &util){
 
 	a = 0;
 
-
+	return p;
 
 }
 
@@ -405,20 +463,34 @@ void resizeDisminuir(Usuario **p, int &tuplas, int &util){
 */
 Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util){
 
-	//cout << "entra I  " << endl;
-	a[util] = iniciaPersona(a[util]);
-	//cout << "sale  " << endl;
+	bool repetido = false;
 
-	//cout << "entra SU  " << endl;
-	setUsuario(a[util]);
-	//cout << "sale " << endl;
+	do{
+
+		repetido = false;
+		//cout << "entra I  " << endl;
+		a[util] = iniciaPersona(a[util]);
+		//cout << "sale  " << endl;
+
+		//cout << "entra SU  " << endl;
+		setUsuario(a[util]);
+			//cout << "sale " << endl;
+		for(int i = 0; i < util; i++){
+			if(a[util]->login == a[i]->login){
+				repetido = true;
+				cout << "Ese login ya está en uso :( Try again... " << endl;
+			}
+
+		}
+
+	}while(repetido == true);
 
 
-	cout << "dim: " << dimension << endl;
-	cout << "util: "<< util << endl;
-	resizeAumentar(a, dimension, util);
-	cout << "dim: " << dimension <<endl;
-	cout << "util: "<< util << endl;
+	//cout << "dim: " << dimension << endl;
+	//cout << "util: "<< util << endl;
+	a = resizeAumentar(a, dimension, util);
+	//cout << "dim: " << dimension <<endl;
+	//cout << "util: "<< util << endl;
 
 	return a;
 	
@@ -532,70 +604,41 @@ void eliminarUsuario(Usuario **a, int &dimension, int &util){
 
 }
 
-void resizeVector(int *a, int &util){
-
-	int nuevaDim = util + 1;
-
-	int *b = 0;
-	b = new int [nuevaDim];
-
-	for(int i = 0; i < util; i++){
-		b[i] = a[i];
-	}
-
-	delete [] a;
-
-	util = nuevaDim;
-
-	a = b;
-
-	b = 0;
-
-}
 
 void buscarUsuarioPorLogin(Usuario **q, int dimension, int util){
 
 	string login;
 	int opcion = 0;
 	bool encontrado = false;
-
-	int util_v = 0;
-	int *v = 0;
-	v = new int [util_v];	
+	int posicion = 0;
 
 	imprimirTabla(q, util);
 
 	cout << "Que usuario quiere buscar? Escriba su login a continuacion: "; cin >> login;
 
-	for(int i = 0; i < util; i++){
+	for(int i = 0; i < util || encontrado == false; i++){
+
+			//cout << "iteracion: " << i << endl;
 
 			if(login == q[i]->login){
-				v[i] = i;
-				//cout << "util_v " << util_v << endl;
-				resizeVector(v, util_v);
-				//cout << "util_v " << util_v << endl;
+				encontrado = true;
+				posicion = i;
 			}
 
+
 	}
 
-	if(util_v != 0){
-
-		for(int i = 0; i < util_v; i++){
-			getUsuario(q[v[i]]);
-		}
-
+	if(encontrado == true){
+		getUsuario(q[posicion]);
 	} else {
-
-		 cout << "No hemos encontrado el usuario introducido :( " << endl;
+		cout << "No se ha encontrado el usuario con el login especificado :( " << endl;
 	}
-
-	
 
 
 }
 
 void ordenarTablaPorTotalFotos(Usuario **q, int &dimension, int &util){
-	 
+
 }
 
 
@@ -631,7 +674,7 @@ TablaUsuarios* inicializarTabla(){
     //cout << "debug " << q->punteroapuntero << endl;
 
 
-    cout << "Su tabla ha sido inicializada." << endl;;
+    cout << "********* Su tabla ha sido inicializada. **********" << endl;;
 
     return  q;
 
@@ -656,19 +699,20 @@ void menu(){
 
 	do{
 
-	 cout << "\t BIENVENIDO AL PROGRAMA DE LA PRACTICA FINAL DEL 2º TRIMESTRE." << endl;
-	 cout << "\t * Elija una de las siguientes opciones: " << endl;
-	 cout << "\t * Para Crear Tabla Usuarios ---------------------------[1]" << endl;
-	 cout << "\t * Para Imprimir Tabla Usuarios ------------------------[3]" << endl;
-	 cout << "\t * Para Insertar Usuario en Tabla Usuarios -------------[4]" << endl;
-	 cout << "\t * Para Eliminar Usuario en Tabla Usuarios -------------[5]" << endl;
-	 cout << "\t * Buscar Usuarios por Login ---------------------------[6]" << endl;
-	 cout << "\t * Ordenar Tabla Usuarios por totalFotosUsuario o Login-[7]" << endl;
-	 cout << "\t * Añadir Fotografia a Usuario -------------------------[8]" << endl;
-	 cout << "\t * Eliminar Fotografia a Usuario -----------------------[9]" << endl;
-	 cout << "\t * Imprimir Fotografias de un Usuario ------------------[10]" << endl;
-	 cout << "\t * Usuarios con Determinada Foto -----------------------[11]" << endl;
-	 cout << "\t * SALIR -----------------------------------------------[12]" << endl;
+	 cout << "\nBIENVENIDO AL PROGRAMA DE LA PRACTICA FINAL DEL 2º TRIMESTRE." << endl;
+	 cout << "*************************************************************" << endl;
+	 cout << "* Elija una de las siguientes opciones: " << endl;
+	 cout << "* Para Crear Tabla Usuarios ---------------------------[1]" << endl;
+	 cout << "* Para Imprimir Tabla Usuarios ------------------------[3]" << endl;
+	 cout << "* Para Insertar Usuario en Tabla Usuarios -------------[4]" << endl;
+	 cout << "* Para Eliminar Usuario en Tabla Usuarios -------------[5]" << endl;
+	 cout << "* Buscar Usuarios por Login ---------------------------[6]" << endl;
+	 cout << "* Ordenar Tabla Usuarios por totalFotosUsuario o Login-[7]" << endl;
+	 cout << "* Añadir Fotografia a Usuario -------------------------[8]" << endl;
+	 cout << "* Eliminar Fotografia a Usuario -----------------------[9]" << endl;
+	 cout << "* Imprimir Fotografias de un Usuario ------------------[10]" << endl;
+	 cout << "* Usuarios con Determinada Foto -----------------------[11]" << endl;
+	 cout << "* SALIR -----------------------------------------------[12]" << endl;
 
 
 	if(primeraOpcion == true){
@@ -713,7 +757,7 @@ void menu(){
 		/*case 2: //eliminarTabla(); break;*/
 
 		case 3: 
-			//cout << "util "<< util << endl;
+			//cout << "dim "<< miTabla->punteroapuntero[0]->totalFotosUsuario << endl;
 			imprimirTabla(miTabla->punteroapuntero, util); 
 			//cout << "sale " << endl;
 			break;
