@@ -853,8 +853,8 @@ void ordenarTablaPorLogin(Usuario **q, int &util){
 
 	auxiliar = new Usuario;
 
-	char cadena[20];
-	char cadena2[20];
+	char cadena[80];
+	char cadena2[80];
 
 
 	for(int i = 0; i < util; i++){
@@ -1127,6 +1127,8 @@ void setUsuarioCero(Usuario *a){
 		borrarFoto(a->v_fotos, i);
 	}
 
+	delete [] a->v_fotos;
+
 	a->v_fotos = 0;
 	a->dim_vfotos = 0;
 	a->totalFotosUsuario = 0;
@@ -1143,7 +1145,7 @@ Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
 
 	imprimirTablaSinFotos(q, util);
 	do{
-		cout << "A que usuario quieres borrarle foto/s? Introduce su login: "; 
+		cout << "Que usuario quieres borrar? Introduce su login: "; 
 		cin >> login;
 
 		for(int i = 0; i < util || encontrado == false; i++){
