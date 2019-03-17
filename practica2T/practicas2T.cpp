@@ -849,6 +849,36 @@ void ordenarTablaPorTotalFotos(Usuario **q, int &util){
 */
 void ordenarTablaPorLogin(Usuario **q, int &util){
 
+	Usuario *auxiliar;
+
+	auxiliar = new Usuario;
+
+	char cadena[20];
+	char cadena2[20];
+
+
+	for(int i = 0; i < util; i++){
+		for(int j = 0; j < util; j++){
+
+			strcpy(cadena, (q[i]->login).c_str());
+			strcpy(cadena2, (q[j]->login).c_str());
+
+			if(strcmp(cadena, cadena2) < 0){
+
+				auxiliar = q[i];
+				q[i] = q[j];
+				q[j] = auxiliar;
+
+			}
+
+		}
+	}
+
+	cout << "Ya se ha ordenado correctamente. " << endl;
+	cout << "********************************" << endl;
+
+	imprimirTablaSinFotos(q, util);
+
 }
 
 /**
