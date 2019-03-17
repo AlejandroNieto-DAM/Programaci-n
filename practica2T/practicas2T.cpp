@@ -90,6 +90,14 @@ void buscarUsuarioPorLogin(Usuario **q, int dimension, int util);
 TablaUsuarios* inicializarTabla();
 void menu();
 
+
+
+
+
+
+
+
+
 /**
 
 * @brief Asigna un nombre que se introduce a un usuario.
@@ -148,29 +156,6 @@ void setPerfil(Usuario *a){
 	}while(correcto == false);
 	
 }
-
-
-
-void setNombre0(Usuario *a){
-	a->nombre = "0";
-
-}
-void setApellido0(Usuario *a){
-	a->apellido = "0";
-}
-void setLogin0(Usuario *a){
-	
-	a->login = "0";
-	
-}
-void setPerfil0(Usuario *a){
-
-	
-	a->perfil_usuario = "0";
-	
-}
-
-
 
 /**
 
@@ -328,30 +313,87 @@ void setUsuario(Usuario *a){
 
 }
 
+/**
+
+* @brief Devuelve el login de un usuario.
+* @return Devuelve un string que es el login.
+
+*/
 string getLogin(const Usuario *a){
 	return a->login;
 }
+
+/**
+
+* @brief Devuelve el nombre de un usuario.
+* @return Devuelve un string que es el nombre.
+
+*/
 string getNombre(const Usuario *a){
 	return a->nombre;
 }
+
+/**
+
+* @brief Devuelve el apellido de un usuario.
+* @return Devuelve un string que es el apellido.
+
+*/
 string getApellido(const Usuario *a){
 	return a->apellido;
 }
+
+/**
+
+* @brief Devuelve el perfil de un usuario.
+* @return Devuelve un string que es el perfil del usuario.
+
+*/
 string getPerfil(const Usuario *a){
 	return a->perfil_usuario;
 }
 
+/**
 
+* @brief Devuelve la ruta de una foto.
+* @return Devuelve un string que es la ruta de una foto.
+
+*/
 string getRuta(Foto &a){
 	return a.ruta;
 }
+
+/**
+
+* @brief Devuelve el tipo de una foto.
+* @return Devuelve un string que es el tipo de una foto.
+
+*/
 string getTipo(Foto &a){
 	return a.tipo;
 }
+
+/**
+
+* @brief Devuelve el tamaño de una foto.
+* @return Devuelve un string que es el tamaño de una foto.
+
+*/
 unsigned long int getTamanio(Foto &a){
 	return a.tamanio;
 }
 
+/**
+
+* @ brief Modulo que devuelve las fotos de un usuario.
+* @ param *a que es el vector de fotos del usuario.
+* @ param util que es el numero de componentes utilizadas en el vector (totalFotosUsuario)
+* @ pre *a debe de haber sido inicializado previamente
+* @ pre totalFotosUsuario > 0 && < DIM
+* @ return no devuelve nada.
+* @ post se mostrará por pantalla cada una de las fotos del usuario.  
+
+*/
 void getFoto(Foto *a, int util){
 
 	for(int i = 0; i < util; i++){
@@ -364,13 +406,20 @@ void getFoto(Foto *a, int util){
 }
 
 
+/**
 
+* @ brief Permite ver si se desea las fotos del usuario.
+* @ param *a que es el usuario del que queremos ver las fotos.
+* @ pre *a debe de tener su vector de fotos inicializado y al menos mantener 1 en su interior.
+* @ return no devuelve nada.
+* @ post Si se desea se veran todas las fotos de usuario  y si no seguirá con la ejecución de programa.
 
+*/
 void getFotos(Usuario *a){
 
 	int opcion = 0;
 
-	if(a->totalFotosUsuario > 1){
+	if(a->totalFotosUsuario > 0){
 		cout << "Quieres ver las fotos que guarda el usuario? [1]Si, [Press any int key]No: ";
 		cin >> opcion;
 	}
@@ -380,8 +429,15 @@ void getFotos(Usuario *a){
 
 }
 
+
 /**
-*
+
+* @ brief Imprime un usuario al completo.
+* @ param *a que es el usuario que queremos mostrar por pantalla.
+* @ pre *a debe de ser un usuario en una posicion existente de punteroapuntero.
+* @ return no devuelve nada.
+* @ post Se mostrará el usuario por pantalla. 
+
 */
 void getUsuario(Usuario *a){
 
@@ -397,6 +453,16 @@ void getUsuario(Usuario *a){
 
 }
 
+
+/**
+
+* @ brief Imprime un usuario sin las fotos.
+* @ param *a que es el usuario que queremos mostrar por pantalla.
+* @ pre *a debe de ser un usuario en una posicion existente de punteroapuntero.
+* @ return no devuelve nada.
+* @ post Se mostrará el usuario por pantalla. 
+
+*/
 void getUsuarioSinFotos(Usuario *a){
 
 	cout << "USUARIO" << endl;
@@ -410,6 +476,15 @@ void getUsuarioSinFotos(Usuario *a){
 
 }
 
+/**
+
+* @ brief Muestra el login del usuario y sus fotos.
+* @ param *a que es el usuario del que queremos mostrar su login y fotos.
+* @ pre *a debe de ser un usuario en una posicion existente de punteroapuntero.
+* @ return no devuelve nada.
+* @ param se mostrará por pantalla el login y las fotos.
+
+*/
 void getFotosUsuario(Usuario *a){
 	
 	cout << "USUARIO" << endl;
@@ -419,7 +494,17 @@ void getFotosUsuario(Usuario *a){
 }
 
 /**
-*
+
+* @ brief Aumenta la dimension y el util del vector de punteros **p.
+* @ param **p que es el vector de punteros al que cambiaremos su dimension.
+* @ param tuplas que es la dimension de **p
+* @ param util que es el numero de posiciones que hay ocupadas dentro del vector de punteros.
+* @ pre **p debe de tener algo en su interior para acceder a este modulo.
+* @ pre tuplas > 0
+* @ pre util > 0 
+* @ return no devuelve nada.
+* @ post el numero de tuplas y utiles de **p será aumentado en 1.
+
 */
 Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
 
@@ -455,7 +540,17 @@ Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
 
 
 /**
-*
+
+* @ brief Disminuye la dimension y el util del vector de punteros **p.
+* @ param **p que es el vector de punteros al que cambiaremos su dimension.
+* @ param tuplas que es la dimension de **p
+* @ param util que es el numero de posiciones que hay ocupadas dentro del vector de punteros.
+* @ pre **p debe de tener algo en su interior para acceder a este modulo.
+* @ pre tuplas > 0
+* @ pre util > 0 
+* @ return no devuelve nada.
+* @ post el numero de tuplas y utiles de **p será disminuido en 1.
+
 */
 Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 
@@ -488,7 +583,13 @@ Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 
 
 /**
-*
+
+* @ brief Inicia un puntero de tipo usuario al que se le asigna una dirección de memoria.
+* @ param *a que es el usuario al que asignaremos la posicion.
+* @ pre *a debe de ser una posicion en un vector de punteros.
+* @ return devuelve un puntero a usuario.
+* @ post la direccion de memoria que se retorna se guarda en un vector de punteros a punteros.
+
 */
  Usuario* iniciaPersona(Usuario *a){
 
@@ -507,7 +608,16 @@ Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 }
 
 /**
-*
+
+* @ brief Inserta un usuario en el puntero a puntero de una variable tipo TablaUsuarios y hace un resize del mismo.
+* @ param **a que es el miembro punteroapuntero de una varible de tipo TablaUsuarios
+* @ param dimension que es el miembro totalTuplas de una variable de tipo TablaUsuarios.
+* @ param util que es el numero de componentes ocupados en el miembro **a
+* @ pre todos estos componentes deben de haber sidos inicializados anteriormente.
+* @ return devuelve una direccion de memoria de tipo puntero a puntero 
+* @ post **a cambiará su dirección de memoria por una nueva después del resize.
+
+
 */
 Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util){
 
@@ -546,9 +656,15 @@ Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util)
 }
 
 /**
-*
-*/
 
+* @ brief Muestra todos los usuarios guardados en la tabla.
+* @ param **a que es el vector que guarda los usuarios.
+* @ param util que es el numero de usuarios total en el vector.
+* @ pre util > 0.
+* @ return no devuelve nada.
+* @ post Se mostrarán todos los usuarios al completo.
+
+*/
 void imprimirTabla(Usuario **a, int util){
 
 
@@ -558,6 +674,17 @@ void imprimirTabla(Usuario **a, int util){
 
 }
 
+
+/**
+
+* @ brief Muestra todos los usuarios guardados en la tabla sin fotos.
+* @ param **a que es el vector que guarda los usuarios.
+* @ param util que es el numero de usuarios total en el vector.
+* @ pre util > 0.
+* @ return no devuelve nada.
+* @ post Se mostrarán todos los usuarios sin fotos.
+
+*/
 void imprimirTablaSinFotos(Usuario **a, int util){
 
 
@@ -567,111 +694,34 @@ void imprimirTablaSinFotos(Usuario **a, int util){
 
 }
 
-void imprimirTablaUser(Usuario **a, int pos){
 
+/**
+
+* @ brief Muestra un usuario en concreto al completo.
+* @ param **a que es el vector que guarda los usuarios.
+* @ param pos que es la posicion del usuario en concreto que queremos ver.
+* @ pre pos >= 0 && < totalTuplas.
+* @ return no devuelve nada.
+* @ post Se mostrará el usuario indicado al completo.
+
+*/
+void imprimirTablaUser(Usuario **a, int pos){
 
 	getUsuario(a[pos]);
 
-
-}
-
-
-void asignarACero(Usuario *a){
-
-	
-
-	if(a->dim_vfotos > 0){
-
-		for(int i = 0; i < a->dim_vfotos; i++){
-			a->v_fotos = 0;
-			//resizeFoto(a->v_fotos);
-		}
-
-	}
-	
-	setLogin0(a);
-	setNombre0(a);
-	setApellido0(a);
-	setPerfil0(a);
-
-}
-
-
-
-/**
-*
-*/
-void cambiarPosicionUsuario(Usuario *a, Usuario *b){
-
-	a->login = b->login;
-	a->nombre = b->nombre;
-	a->apellido = b->apellido;
-	a->perfil_usuario = b->perfil_usuario;
-	a->v_fotos = b->v_fotos;
-	a->dim_vfotos = b->dim_vfotos;
-	a->totalFotosUsuario = b->totalFotosUsuario;
-
-
-}
-
-void intercambiarUsuarios(Usuario *a, Usuario *b){
-
-	Usuario *auxiliar = 0;
-	auxiliar = new Usuario;
-
-	Foto *auxiliar2 = 0;
-	auxiliar2 = new Foto [b->dim_vfotos];
-
-	auxiliar->v_fotos = auxiliar2;
-
-	cambiarPosicionUsuario(auxiliar, b);
-	cambiarPosicionUsuario(b, a);
-	cambiarPosicionUsuario(a, auxiliar);
-
-	delete auxiliar;
-	delete [] auxiliar2;
-
-	auxiliar = 0;
-	auxiliar2 = 0;
-
 }
 
 /**
-*
+
+* @ brief Busca el usuario que introduzcan mediante su login en toda la tabla y te lo muestra al completo.
+* @ param **q que es el vector de usuarios donde vamos a buscar.
+* @ param util que es el numero de usuarios dentro del vector.
+* @ pre util > 0.
+* @ return no devuelve nada.
+* @ post Buscará un usuario en la tabla de usuarios y lo mostrará al completo.
+
 */
-void eliminarUsuario(Usuario **a, int &dimension, int &util){
-
-	string login;
-	int opcion = 0;
-	bool encontrado = false;
-
-	imprimirTablaSinFotos(a, util);
-
-	cout << "Que usuario quiere eliminar? Escriba su login a continuacion: "; cin >> login;
-
-	for(int i = 0; i < util; i++){
-
-			if(login == a[i]->login){
-				getUsuario(a[i]);
-				
-				
-				cout << "Quieres eliminarlo? [1]Si, [Press any int key]No: "; cin >> opcion;
-				if(opcion == 1){	
-					asignarACero(a[i]);
-					intercambiarUsuarios(a[i], a[util]);
-					//resizeDisminuir(a, dimension, util);
-				}
-
-
-			}
-
-	}
-
-
-}
-
-
-void buscarUsuarioPorLogin(Usuario **q, int dimension, int util){
+void buscarUsuarioPorLogin(Usuario **q, int util){
 
 	string login;
 	int opcion = 0;
@@ -703,7 +753,10 @@ void buscarUsuarioPorLogin(Usuario **q, int dimension, int util){
 
 }
 
-void ordenarTablaPorTotalFotos(Usuario **q, int &dimension, int &util){
+/**
+*
+*/
+void ordenarTablaPorTotalFotos(Usuario **q, int &util){
 
 	Usuario *auxiliar;
 
@@ -728,6 +781,37 @@ void ordenarTablaPorTotalFotos(Usuario **q, int &dimension, int &util){
 
 }
 
+
+void ordenarTablaPorLogin(Usuario **q, int &util){
+
+}
+
+void ordenarTotalFotosoLogin(Usuario **q, int &util){
+
+	int opcion = 0;
+
+	cout << "Se procederá a ordenar su tabla: " << endl;
+	cout << "********************************" << endl;
+	cout << "[1] Ordenar por numero total de fotos. " << endl;
+	cout << "[2] Ordenar alfabeticamente. " << endl;
+
+	do{
+		cin >> opcion;
+	}while(opcion != 2 && opcion != 1);
+
+	if(opcion == 1){
+		ordenarTablaPorTotalFotos(q, util);
+	} else {
+		ordenarTablaPorLogin(q, util);
+	}
+
+
+}
+
+
+/**
+*
+*/
 void fotoAUsuario(Usuario *a){
 			
 		//cout << "util fuera: " << a->totalFotosUsuario << endl;
@@ -745,7 +829,9 @@ void fotoAUsuario(Usuario *a){
 
 }
 
-
+/**
+*
+*/
 void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
 
 	int posicion = 0;
@@ -786,6 +872,9 @@ void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
 
 }
 
+/**
+*
+*/
 void imprimirFotosUsuario(Usuario **q, int &dimension, int &util){
 
 	
@@ -952,12 +1041,12 @@ void menu(){
 
 		case 5: 
 			//cout << "entra " << endl;
-			eliminarUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); 
+			//eliminarUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); 
 			//cout << "sale " << endl;
 			break;
 
-		case 6: buscarUsuarioPorLogin(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
-		case 7: ordenarTablaPorTotalFotos(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
+		case 6: buscarUsuarioPorLogin(miTabla->punteroapuntero, util); break;
+		case 7: ordenarTotalFotosoLogin(miTabla->punteroapuntero, util); break;
 		case 8: aniadirFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
 		//case 9: eliminarFotoAUsuario(); break;
 		case 10: imprimirFotosUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
