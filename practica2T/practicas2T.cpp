@@ -44,7 +44,6 @@ void intercambiarFotos(Foto *a, int posicion, int util);
 
 
 
-
 /****************************************
 ** Definición del TIPO DE DATO Usuario **
 *****************************************/
@@ -85,7 +84,6 @@ void borrarfotoAUsuario(Usuario *a);
 
 
 
-
 /**********************************************
 ** Definición del TIPO DE DATO TablaUsuarios **
 ***********************************************/
@@ -117,16 +115,9 @@ Usuario* setAlumnoEjemplo(Usuario *a, string login, string nombre, string apelli
 void setFotosEjemplo(Foto &a, string ruta, string tipo, int tamanio);
 void establecerAlumnosEjemplo(Usuario **q);
 TablaUsuarios* inicializarTabla();
-void eliminarUsuarios(Usuario **q, int &dimension, int &util);
+void eliminarUsuarios(Usuario **q, int &util);
 void eliminarTabla(TablaUsuarios *a, int &util);
 void menu();
-
-
-
-
-
-
-
 
 
 /**
@@ -592,19 +583,28 @@ Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
 	Usuario **a;
 	a = new Usuario *[nuevaDim];
 
+	
+
 	if (a == 0){
         cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
         exit(-1);
     }
 
-	for(int i = 0; i < tuplas; i++){
+	for(int i = 0; i < util; i++){
 		a[i] = p[i];
 	}
 
 	delete [] p;
 
+	//cout << DEBUG << "dim: " << tuplas << RESTORE << endl;
+	//cout << DEBUG << "util: " << util << RESTORE << endl;
+
 	tuplas = nuevaDim;
 	util++;
+	
+
+	cout << DEBUG << "dim: " << tuplas << RESTORE << endl;
+	cout << DEBUG << "util: " << util << RESTORE << endl;
 
 
 	p = a;
@@ -746,6 +746,7 @@ Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util)
 */
 void imprimirTabla(Usuario **a, int util){
 
+	ordenarTablaPorLogin(a, util);
 
 	for(int i = 0; i < util; i++){
 		getUsuario(a[i]);
@@ -766,6 +767,7 @@ void imprimirTabla(Usuario **a, int util){
 */
 void imprimirTablaSinFotos(Usuario **a, int util){
 
+	ordenarTablaPorLogin(a, util);
 
 	for(int i = 0; i < util; i++){
 		getUsuarioSinFotos(a[i]);
@@ -863,10 +865,7 @@ void ordenarTablaPorTotalFotos(Usuario **q, int &util){
 		}
 	}
 
-	cout << GREEN;
-	cout << "Ya se ha ordenado correctamente. " << endl;
-	cout << "********************************" << endl;
-	cout << RESTORE;
+	
 
 
 
@@ -909,11 +908,6 @@ void ordenarTablaPorLogin(Usuario **q, int &util){
 		}
 	}
 
-	cout << GREEN;
-	cout << "Ya se ha ordenado correctamente. " << endl;
-	cout << "********************************" << endl;
-	cout << RESTORE;
-
 
 }
 
@@ -947,6 +941,10 @@ void ordenarTotalFotosoLogin(Usuario **q, int &util){
 		ordenarTablaPorLogin(q, util);
 	}
 
+	cout << GREEN;
+	cout << "Ya se ha ordenado correctamente. " << endl;
+	cout << "********************************" << endl;
+	cout << RESTORE;
 
 }
 
@@ -1326,6 +1324,7 @@ void establecerAlumnosEjemplo(Usuario **q){
 
 	q[0] = setAlumnoEjemplo(q[0], "@Jose", "Jose", "Domene", "User", f, 8, 7);
 
+
 	Foto *h;
 	h = new Foto [7];
 	if (h == 0){
@@ -1342,6 +1341,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 
 	q[1] = setAlumnoEjemplo(q[1], "@Antonio", "Antonio", "Segura", "User", h, 7, 6);
 
+	
+
 	Foto *z;
 	z = new Foto [6];
 	if (z == 0){
@@ -1357,6 +1358,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 
 	q[2] = setAlumnoEjemplo(q[2], "@Javier", "Javier", "Fernandez", "User", z, 6, 5);
 
+	
+
 	Foto *r;
 	r = new Foto [5];
 	if (r == 0){
@@ -1371,6 +1374,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	
 	q[3] = setAlumnoEjemplo(q[3], "@Juandi", "Juan", "Pérez", "Admin", r, 5, 4);
 
+	
+
 	Foto *c;
 	c = new Foto [4];
 	if (c == 0){
@@ -1384,6 +1389,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	
 	q[4] = setAlumnoEjemplo(q[4], "@Matilde", "Matilde", "Alarcón", "Admin", c, 4, 3);
 
+	
+
 	Foto *d;
 	d = new Foto [3];
 	if (d == 0){
@@ -1396,6 +1403,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 
 	q[5] = setAlumnoEjemplo(q[5], "@Josema", "Josema", "Martinez", "User", d, 3, 2);
 
+	
+
 
 	Foto *j;
 	j = new Foto [2];
@@ -1407,6 +1416,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(j[0], "home/cristorey/Downloads/pablete.png", "png", 200);
 
 	q[6] = setAlumnoEjemplo(q[6], "@Inma", "Inma", "Sanchez", "Admin", j, 2, 1);
+
+	
 
 
 }
@@ -1451,17 +1462,38 @@ TablaUsuarios* inicializarTabla(){
 
 }
 
-void eliminarUsuarios(Usuario **q, int &dimension, int &util){
+
+/**
+
+* @ brief Pone a todos los usuarios a 0.
+* @ param **q que es el vector de punteros a los cuales accederemos y pondremos a 0.
+* @ param util que es el numero de usuarios que hay en **q
+* @ post pondra todos los valores de todos los usuarios a 0.
+
+*/
+void eliminarUsuarios(Usuario **q, int &util){
 
 	for(int i = 0; i < util; i++){
 		setUsuarioCero(q[i]);
 	}
 
+	delete [] q;
+	q = 0;
+	util = 0;
+
 }
 
+/**
+
+* @ brief Elimina todos los usuarios existentes en una tabla.
+* @ param *a que es la Tabla de Usuarios a la que le eliminaremos los usuarios.
+* @ param util que es el numero de usuarios total que hay en la tabla.
+* @ post eliminará todos los usuarios.
+
+*/
 void eliminarTabla(TablaUsuarios *a, int &util){
 
-	eliminarUsuarios(a->punteroapuntero, a->totalTuplas, util);
+	eliminarUsuarios(a->punteroapuntero, util);
 
 }
 
@@ -1538,8 +1570,8 @@ void menu(){
 			//cout << DEBUG << miTabla << RESTORE << endl;
 			//cout << DEBUG << miTabla->punteroapuntero << RESTORE << endl;
 			miTabla = inicializarTabla();
-			util = 7;
 			establecerAlumnosEjemplo(miTabla->punteroapuntero);
+			util = 7;
 			//cout << DEBUG << miTabla << RESTORE << endl;
 			//cout << DEBUG << miTabla->punteroapuntero << RESTORE << endl;
 		 	break;
