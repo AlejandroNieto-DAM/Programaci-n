@@ -135,7 +135,7 @@ void menu();
 
 */
 void setNombre(Usuario *a){
-	cout << "Introduce el nombre: ";
+	cout << YELLOW << "Introduce el nombre: " << RESTORE;
 	cin >> a->nombre;
 	cout << endl;
 }
@@ -146,7 +146,7 @@ void setNombre(Usuario *a){
 
 */
 void setApellido(Usuario *a){
-	cout << "Introduce el apellido: ";
+	cout << YELLOW << "Introduce el apellido: " << RESTORE;
 	cin >> a->apellido;
 	cout << endl;
 }
@@ -157,7 +157,7 @@ void setApellido(Usuario *a){
 
 */
 void setLogin(Usuario *a){
-	cout << "Introduce el login: ";
+	cout << YELLOW << "Introduce el login: " << RESTORE;
 	cin >> a->login;
 	cout << endl;
 }
@@ -175,13 +175,13 @@ void setPerfil(Usuario *a){
 
 		correcto = true;
 
-		cout << "Introduce el perfil_usuario [Admin] o [User]: ";
+		cout << YELLOW << "Introduce el perfil_usuario [Admin] o [User]: " << RESTORE;
 		cin >> a->perfil_usuario;
 		cout << endl;
 
 		if(a->perfil_usuario != admin && a->perfil_usuario != user){
 			correcto = false;
-			cout << "El perfil_usuario solo puede ser [Admin] o [User], Try again...";
+			cout << MAGENTA << "El perfil_usuario solo puede ser [Admin] o [User], Try again..." << RESTORE;
 		}
 
 	}while(correcto == false);
@@ -195,7 +195,7 @@ void setPerfil(Usuario *a){
 */
 void setRuta(Foto &a){
 
-	cout << "Introduce la ruta (Ejem: home/cristorey/Escritorio/imagen.png) : ";
+	cout << YELLOW << "Introduce la ruta (Ejem: home/cristorey/Escritorio/imagen.png) : " << RESTORE;
 	cin >> a.ruta;
 
 }
@@ -207,7 +207,7 @@ void setRuta(Foto &a){
 */
 void setTipo(Foto &a){
 
-	cout << "Introduce el tipo (Ejem: png, jpeg...): ";
+	cout << YELLOW << "Introduce el tipo (Ejem: png, jpeg...): " << RESTORE;
 	cin >> a.tipo;
 
 }
@@ -219,7 +219,7 @@ void setTipo(Foto &a){
 */
 void setTamanio(Foto &a){
 
-	cout << "Introduce el tamaño: ";
+	cout << YELLOW <<"Introduce el tamaño: " << RESTORE;
 	cin >> a.tamanio;
 }
 
@@ -343,7 +343,7 @@ void setVectorFotos(Usuario *a){
 
 	int opcion = 0;
 
-	cout << "Este usuario tiene fotos? [1]Si, [2]No. " << endl;
+	cout << YELLOW << "Este usuario tiene fotos? [1]Si, [2]No. " << RESTORE << endl;
 	cin >> opcion;
 
 	
@@ -471,10 +471,12 @@ unsigned long int getTamanio(Foto &a){
 void getFoto(Foto *a, int util){
 
 	for(int i = 0; i < util; i++){
-		cout << "Foto: " << i + 1 << endl;
+
+		cout << CYAN << "Foto: " << i + 1 << endl;
 		cout << "Ruta: " << getRuta(a[i]) << endl;
 		cout << "Tipo: " << getTipo(a[i]) << endl;
 		cout << "Tamaño que ocupa: " << getTamanio(a[i]) << endl;
+		cout << RESTORE;
 		cout << endl;
 	}
 }
@@ -494,7 +496,7 @@ void getFotos(Usuario *a){
 	int opcion = 0;
 
 	if(a->totalFotosUsuario > 0){
-		cout << "Quieres ver las fotos que guarda el usuario? [1]Si, [Press any int key]No: ";
+		cout << YELLOW << "Quieres ver las fotos que guarda el usuario? [1]Si, [Press any int key]No: " << RESTORE;
 		cin >> opcion;
 	}
 
@@ -515,11 +517,13 @@ void getFotos(Usuario *a){
 */
 void getUsuario(Usuario *a){
 
-	cout << "USUARIO" << endl;
+	cout << GREEN << "USUARIO" << RESTORE << endl;
+	cout << YELLOW;
 	cout << "Login: " << getLogin(a) << endl;
 	cout << "Nombre: " << getNombre(a) << endl;
 	cout << "Apellido: " << getApellido(a) << endl;
 	cout << "Perfil del Usuario: " << getPerfil(a) << endl;
+	cout << RESTORE;
 	getFotos(a); 
 	cout << endl;
 
@@ -539,12 +543,13 @@ void getUsuario(Usuario *a){
 */
 void getUsuarioSinFotos(Usuario *a){
 
-	cout << "USUARIO" << endl;
+	cout << GREEN << "USUARIO" << RESTORE << endl;
+	cout << YELLOW;
 	cout << "Login: " << getLogin(a) << endl;
 	cout << "Nombre: " << getNombre(a) << endl;
 	cout << "Apellido: " << getApellido(a) << endl;
 	cout << "Perfil del Usuario: " << getPerfil(a) << endl; 
-	cout << endl;
+	cout << RESTORE << endl;
 
 
 
@@ -561,8 +566,8 @@ void getUsuarioSinFotos(Usuario *a){
 */
 void getFotosUsuario(Usuario *a){
 	
-	cout << "USUARIO" << endl;
-	cout << "Login: " << getLogin(a) << endl;
+	cout << GREEN << "USUARIO" << RESTORE << endl;
+	cout << CYAN << "Login: " << getLogin(a) << RESTORE << endl;
 	getFotos(a); 
 
 }
@@ -710,7 +715,7 @@ Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util)
 		for(int i = 0; i < util; i++){
 			if(a[util]->login == a[i]->login){
 				repetido = true;
-				cout << "Ese login ya está en uso :( Try again... " << endl;
+				cout << MAGENTA << "Ese login ya está en uso :( Try again... " << RESTORE << endl;
 			}
 
 		}
@@ -804,7 +809,7 @@ void buscarUsuarioPorLogin(Usuario **q, int util){
 
 	imprimirTablaSinFotos(q, util);
 
-	cout << "Que usuario quiere buscar? Escriba su login a continuacion: "; cin >> login;
+	cout << YELLOW << "Que usuario quiere buscar? Escriba su login a continuacion: " << RESTORE; cin >> login;
 
 	for(int i = 0; i < util || encontrado == false; i++){
 
@@ -821,7 +826,7 @@ void buscarUsuarioPorLogin(Usuario **q, int util){
 	if(encontrado == true){
 		getUsuario(q[posicion]);
 	} else {
-		cout << "No se ha encontrado el usuario con el login especificado :( " << endl;
+		cout << MAGENTA << "No se ha encontrado el usuario con el login especificado :( " << RESTORE << endl;
 	}
 
 
@@ -858,10 +863,10 @@ void ordenarTablaPorTotalFotos(Usuario **q, int &util){
 		}
 	}
 
+	cout << GREEN;
 	cout << "Ya se ha ordenado correctamente. " << endl;
 	cout << "********************************" << endl;
-
-	imprimirTablaSinFotos(q, util);
+	cout << RESTORE;
 
 
 
@@ -904,10 +909,11 @@ void ordenarTablaPorLogin(Usuario **q, int &util){
 		}
 	}
 
+	cout << GREEN;
 	cout << "Ya se ha ordenado correctamente. " << endl;
 	cout << "********************************" << endl;
+	cout << RESTORE;
 
-	imprimirTablaSinFotos(q, util);
 
 }
 
@@ -925,11 +931,12 @@ void ordenarTotalFotosoLogin(Usuario **q, int &util){
 
 	int opcion = 0;
 
+	cout << CYAN;
 	cout << "Se procederá a ordenar su tabla: " << endl;
 	cout << "********************************" << endl;
 	cout << "[1] Ordenar por numero total de fotos. " << endl;
 	cout << "[2] Ordenar alfabeticamente. " << endl;
-
+	cout << RESTORE;
 	do{
 		cin >> opcion;
 	}while(opcion != 2 && opcion != 1);
@@ -990,7 +997,7 @@ void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
 
 	imprimirTablaSinFotos(q, util);
 	do{
-		cout << "A que usuario quieres introducirle la foto? Introduce su login: "; 
+		cout << YELLOW << "A que usuario quieres introducirle la foto? Introduce su login: " << RESTORE; 
 		cin >> login;
 
 		for(int i = 0; i < util || encontrado == false; i++){
@@ -1011,11 +1018,11 @@ void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
 
 			fotoAUsuario(q[posicion]);
 
-			cout << "Quiere introducir otra foto? [1]Si, [2]No..."; cin >> opcion;
+			cout << YELLOW << "Quiere introducir otra foto? [1]Si, [2]No..." << RESTORE; cin >> opcion;
 
 		}while(opcion == 1);
 	} else {
-		cout << "Este usuario no tiene fotos :(( " << endl;
+		cout << MAGENTA << "Este usuario no tiene fotos :(( " << RESTORE << endl;
 	}
 
 
@@ -1042,7 +1049,7 @@ void imprimirFotosUsuario(Usuario **q, int &dimension, int &util){
 	imprimirTablaSinFotos(q, util);
 
 	do{
-		cout << "De que usuario quieres ver la/s foto/s? Introduce su login: "; 
+		cout << YELLOW << "De que usuario quieres ver la/s foto/s? Introduce su login: " << RESTORE; 
 		cin >> login;
 
 	
@@ -1061,7 +1068,7 @@ void imprimirFotosUsuario(Usuario **q, int &dimension, int &util){
 	if(q[posicion]->dim_vfotos != -1 && q[posicion]->dim_vfotos > 1){
 		imprimirTablaUser(q, posicion);
 	} else {
-		cout << "Este usuario no tiene fotos :(( " << endl;
+		cout << MAGENTA << "Este usuario no tiene fotos :(( " << RESTORE << endl;
 	}
 
 }
@@ -1113,7 +1120,7 @@ void borrarfotoAUsuario(Usuario *a){
 	int posicion = 0;
 
 	do{
-		cout << "Que foto quiere borrar? Introduce su posicion " << 0 << " - " << a->totalFotosUsuario - 1 << " : "; 
+		cout << YELLOW << "Que foto quiere borrar? Introduce su posicion " << 0 << " - " << a->totalFotosUsuario - 1 << " : " << RESTORE; 
 		cin >> posicion;
 	}while(posicion > a->totalFotosUsuario - 1 || posicion < 0);
 
@@ -1149,7 +1156,7 @@ void eliminarFotoAUsuario(Usuario **q, int dimension, int util){
 
 	imprimirTablaSinFotos(q, util);
 	do{
-		cout << "A que usuario quieres borrarle foto/s? Introduce su login: "; 
+		cout << YELLOW << "A que usuario quieres borrarle foto/s? Introduce su login: " << RESTORE; 
 		cin >> login;
 
 		for(int i = 0; i < util || encontrado == false; i++){
@@ -1171,12 +1178,12 @@ void eliminarFotoAUsuario(Usuario **q, int dimension, int util){
 			imprimirTablaUser(q, posicion);
 			borrarfotoAUsuario(q[posicion]);
 			if(q[posicion]->dim_vfotos > 1){
-			cout << "Quiere borrar otra foto? [1]Si, [2]No..."; cin >> opcion;
+			cout << YELLOW << "Quiere borrar otra foto? [1]Si, [2]No..." << RESTORE; cin >> opcion;
 			}
 
 		}while(opcion == 1);
 	} else {
-		cout << "Este usuario no tiene fotos :(( " << endl;
+		cout << MAGENTA << "Este usuario no tiene fotos :(( " << RESTORE << endl;
 	}
 
 }
@@ -1221,7 +1228,7 @@ Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
 
 	imprimirTablaSinFotos(q, util);
 	do{
-		cout << "Que usuario quieres borrar? Introduce su login: "; 
+		cout << YELLOW << "Que usuario quieres borrar? Introduce su login: " << RESTORE; 
 		cin >> login;
 
 		for(int i = 0; i < util || encontrado == false; i++){
@@ -1263,7 +1270,7 @@ Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
 
 	return q;
 
-	cout << "********* El usuario ha sido eliminado exitosamente. **********" << endl;;
+	cout << GREEN <<"********* El usuario ha sido eliminado exitosamente. **********" << RESTORE <<endl;;
 }
 
 Usuario* setAlumnoEjemplo(Usuario *a, string login, string nombre, string apellido, string perfil, Foto *c, int dim, int fotos){
@@ -1430,7 +1437,7 @@ TablaUsuarios* inicializarTabla(){
     Usuario **a = 0;
     a = new Usuario*[q->totalTuplas];
 
-    cout << DEBUG << "debug: " << q->totalTuplas << RESTORE << endl;
+    //cout << DEBUG << "debug: " << q->totalTuplas << RESTORE << endl;
 
     q->punteroapuntero = a;
 
@@ -1438,7 +1445,7 @@ TablaUsuarios* inicializarTabla(){
     //cout << DEBUG << "debug " << q->punteroapuntero << RESTORE << endl;
 
 
-    cout << "********* Su tabla ha sido inicializada. **********" << endl;
+    cout << GREEN << "********* Su tabla ha sido inicializada. **********" << RESTORE << endl;
 
     return  q;
 
@@ -1474,9 +1481,12 @@ void menu(){
 	bool primeraOpcion = true;
 
 	do{
-
+	 
+	 cout << GREEN;
 	 cout << "\nBIENVENIDO AL PROGRAMA DE LA PRACTICA FINAL DEL 2º TRIMESTRE." << endl;
 	 cout << "*************************************************************" << endl;
+	 cout << RESTORE;
+	 cout << CYAN;
 	 cout << "* Elija una de las siguientes opciones: " << endl;
 	 cout << "* Para Crear Tabla Usuarios ---------------------------[1]" << endl;
 	 cout << "* Para Eliminar Tabla Usuarios ------------------------[2]" << endl;
@@ -1490,7 +1500,7 @@ void menu(){
 	 cout << "* Imprimir Fotografias de un Usuario ------------------[10]" << endl;
 	 cout << "* Usuarios con Determinada Foto -----------------------[11]" << endl;
 	 cout << "* SALIR -----------------------------------------------[12]" << endl;
-
+	 cout << RESTORE;
 
 	if(primeraOpcion == true){
 
@@ -1501,7 +1511,7 @@ void menu(){
 			if(opcion == 1 || opcion == 12){
 				tablaCreada = true;
 			} else {
-				cout << "Primero debes crear la tabla O.o Pulsa [1]..." << endl;
+				cout << MAGENTA <<"Primero debes crear la tabla O.o Pulsa [1]..." << RESTORE << endl;
 			}
 
 		}while(tablaCreada == false);
@@ -1541,7 +1551,7 @@ void menu(){
 
 			primeraOpcion = true;
 			tablaCreada = false;
-			cout << "********* Su tabla ha sido eliminada exitosamente. **********" << endl;
+			cout << MAGENTA << "********* Su tabla ha sido eliminada exitosamente. **********" << RESTORE << endl;
 
 			break;
 
@@ -1571,10 +1581,12 @@ void menu(){
 		//case 11: busquedaDeterminada(); break;
 		case 12: 
 
-			eliminarTabla(miTabla, util); 
-			delete miTabla;
-			miTabla = 0;
-			cout << "******** Gracias por haber utilizado el programa :) *********" << endl; 
+			if(tablaCreada == false){
+				eliminarTabla(miTabla, util); 
+				delete miTabla;
+				miTabla = 0;
+			}
+			cout << YELLOW <<"******** Gracias por haber utilizado el programa :) *********" << RESTORE << endl; 
 
 			break;
 
