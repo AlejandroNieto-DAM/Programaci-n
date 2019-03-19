@@ -42,8 +42,6 @@ void borrarFoto(Foto *a, int posicion);
 void intercambiarFotos(Foto *a, int posicion, int util);
 
 
-
-
 /****************************************
 ** Definición del TIPO DE DATO Usuario **
 *****************************************/
@@ -81,9 +79,6 @@ void setUsuarioCero(Usuario *a);
 void borrarfotoAUsuario(Usuario *a);
 
 
-
-
-
 /**********************************************
 ** Definición del TIPO DE DATO TablaUsuarios **
 ***********************************************/
@@ -98,26 +93,27 @@ struct TablaUsuarios{
 /*****************************************************************
  ** Definición de sus Prototipos del Tipo de Dato TablaUsuarios **
  *****************************************************************/
-Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util);
-Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util);
-Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util);
-void imprimirTabla(Usuario **a, int util);
-void buscarUsuarioPorLogin(Usuario **q, int util);
-void ordenarTablaPorTotalFotos(Usuario **q, int &util);
-void ordenarTablaPorLogin(Usuario **q, int &util);
-void ordenarTotalFotosoLogin(Usuario **q, int &util);
+Usuario** resizeAumentar(Usuario **p, int &tuplas);
+Usuario** resizeDisminuir(Usuario **p, int &tuplas);
+Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &tuplas);
+void imprimirTabla(Usuario **a, int tuplas);
+void buscarUsuarioPorLogin(Usuario **q, int tuplas);
+void ordenarTablaPorTotalFotos(Usuario **q, int &tuplas);
+void ordenarTablaPorLogin(Usuario **q, int &tuplas);
+void ordenarTotalFotosoLogin(Usuario **q, int &tuplas);
 void fotoAUsuario(Usuario *a);
-void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util);
-void imprimirFotosUsuario(Usuario **q, int &dimension, int &util);
-void eliminarFotoAUsuario(Usuario **q, int dimension, int util);
-Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util);
+void aniadirFotoAUsuario(Usuario **q, int &util);
+void imprimirFotosUsuario(Usuario **q, int &util);
+void eliminarFotoAUsuario(Usuario **q, int util);
+Usuario** eliminarUsuario(Usuario **q, int &util);
 Usuario* setAlumnoEjemplo(Usuario *a, string login, string nombre, string apellido, string perfil, Foto *c, int dim, int fotos);
 void setFotosEjemplo(Foto &a, string ruta, string tipo, int tamanio);
-void establecerAlumnosEjemplo(Usuario **q);
+Usuario** establecerAlumnosEjemplo(Usuario **q, int &tuplas);
 TablaUsuarios* inicializarTabla();
 void eliminarUsuarios(Usuario **q, int &util);
 void eliminarTabla(TablaUsuarios *a, int &util);
 void menu();
+
 
 
 /**
@@ -296,7 +292,7 @@ Foto* resizeFotoDisminuir(Foto *p, int &dimension, int &util){
     }
 
     
-	for(int i = 0; i < dimension; i++){
+	for(int i = 0; i < util - 1; i++){
 		a[i] = p[i];
 	}
 
@@ -576,8 +572,10 @@ void getFotosUsuario(Usuario *a){
 * @ post el numero de tuplas y utiles de **p será aumentado en 1.
 
 */
-Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
+Usuario** resizeAumentar(Usuario **p, int &tuplas){
 
+
+	tuplas++;
 	int nuevaDim = tuplas + 1;
 
 	Usuario **a;
@@ -590,27 +588,21 @@ Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
         exit(-1);
     }
 
-	for(int i = 0; i < util; i++){
+	for(int i = 0; i < tuplas; i++){
 		a[i] = p[i];
 	}
 
 	delete [] p;
-
-	//cout << DEBUG << "dim: " << tuplas << RESTORE << endl;
-	//cout << DEBUG << "util: " << util << RESTORE << endl;
-
-	tuplas = nuevaDim;
-	util++;
 	
-
-	cout << DEBUG << "dim: " << tuplas << RESTORE << endl;
-	cout << DEBUG << "util: " << util << RESTORE << endl;
-
-
+	//cout << DEBUG << "dim: " << tuplas << RESTORE << endl;
+	//cout << DEBUG << "nuevaDim: " << nuevaDim << RESTORE << endl;
+	
+	//cout << DEBUG << p << RESTORE << endl;
+	
 	p = a;
 
 	a = 0;
-
+	//cout << DEBUG << p << RESTORE << endl;
 	return p;
 
 
@@ -631,9 +623,9 @@ Usuario** resizeAumentar(Usuario **p, int &tuplas, int &util){
 * @ post el numero de tuplas y utiles de **p será disminuido en 1.
 
 */
-Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
+Usuario** resizeDisminuir(Usuario **p, int &tuplas){
 
-	int nuevaDim = tuplas - 1;
+	int nuevaDim = tuplas;
 
 	Usuario **a;
 	a = new Usuario*[nuevaDim];
@@ -643,14 +635,13 @@ Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
         exit(-1);
     }
 
-	for(int i = 0; i < util; i++){
+	for(int i = 0; i < tuplas - 1; i++){
 		a[i] = p[i];
 	}
 
 	delete [] p;
 
-	tuplas = nuevaDim;
-	util--;
+	tuplas--;
 
 	p = a;
 
@@ -672,15 +663,18 @@ Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 */
  Usuario* iniciaPersona(Usuario *a){
 
-	a = new Usuario;
+ 	Usuario *b;
+	b = new Usuario;
 
 
-	if (a == 0){
+	if (b == 0){
         cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
         exit(-1);
     }
+    
+	a = b;
+	b = 0;
 
-	
 	return a;
 	
 	
@@ -698,20 +692,23 @@ Usuario** resizeDisminuir(Usuario **p, int &tuplas, int &util){
 
 
 */
-Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util){
+Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &util){
 
 	bool repetido = false;
 
 	do{
 
 		repetido = false;
-		//cout << DEBUG  << "entra  " << RESTORE << endl;
+		cout << DEBUG  << "util  " << util << RESTORE << endl;
 		a[util] = iniciaPersona(a[util]);
-		//cout << DEBUG << "sale " << RESTORE << endl;
-
 		//cout << DEBUG  << "entra  " << RESTORE << endl;
+		
+		
+		cout << DEBUG  << "entra  " << RESTORE << endl;
 		setUsuario(a[util]);
-			//cout << DEBUG << "sale " << RESTORE << endl;
+		cout << DEBUG << "sale " << RESTORE << endl;
+
+
 		for(int i = 0; i < util; i++){
 			if(a[util]->login == a[i]->login){
 				repetido = true;
@@ -720,14 +717,14 @@ Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &dimension, int &util)
 
 		}
 
+
+
 	}while(repetido == true);
 
 
-	//cout << "dim: " << dimension << endl;
-	//cout << "util: "<< util << endl;
-	a = resizeAumentar(a, dimension, util);
+	cout << "dim: " << util << endl;
+	a = resizeAumentar(a, util);
 	//cout << "dim: " << dimension <<endl;
-	//cout << "util: "<< util << endl;
 
 	return a;
 	
@@ -769,7 +766,7 @@ void imprimirTablaSinFotos(Usuario **a, int util){
 
 	ordenarTablaPorLogin(a, util);
 
-	for(int i = 0; i < util; i++){
+	for(int i = 0; i < util ; i++){
 		getUsuarioSinFotos(a[i]);
 	}	
 
@@ -813,7 +810,7 @@ void buscarUsuarioPorLogin(Usuario **q, int util){
 
 	cout << YELLOW << "Que usuario quiere buscar? Escriba su login a continuacion: " << RESTORE; cin >> login;
 
-	for(int i = 0; i < util || encontrado == false; i++){
+	for(int i = 0; i < util  || encontrado == false; i++){
 
 			//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
 
@@ -851,8 +848,8 @@ void ordenarTablaPorTotalFotos(Usuario **q, int &util){
 	auxiliar = new Usuario;
 
 
-	for(int i = 0; i < util; i++){
-		for(int j = 0; j < util; j++){
+	for(int i = 0; i < util ; i++){
+		for(int j = 0; j < util ; j++){
 
 			if(q[i]->totalFotosUsuario > q[j]->totalFotosUsuario){
 
@@ -891,8 +888,8 @@ void ordenarTablaPorLogin(Usuario **q, int &util){
 	char cadena2[80];
 
 
-	for(int i = 0; i < util; i++){
-		for(int j = 0; j < util; j++){
+	for(int i = 0; i < util ; i++){
+		for(int j = 0; j < util ; j++){
 
 			strcpy(cadena, (q[i]->login).c_str());
 			strcpy(cadena2, (q[j]->login).c_str());
@@ -936,9 +933,9 @@ void ordenarTotalFotosoLogin(Usuario **q, int &util){
 	}while(opcion != 2 && opcion != 1);
 
 	if(opcion == 1){
-		ordenarTablaPorTotalFotos(q, util);
+		ordenarTablaPorTotalFotos(q, (util));
 	} else {
-		ordenarTablaPorLogin(q, util);
+		ordenarTablaPorLogin(q, (util));
 	}
 
 	cout << GREEN;
@@ -986,7 +983,7 @@ void fotoAUsuario(Usuario *a){
 * @ post al usuario escogido se le añadiran las fotos que se quieran si es que tiene.
 
 */
-void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
+void aniadirFotoAUsuario(Usuario **q, int &util){
 
 	int posicion = 0;
 	int opcion = 0;
@@ -1037,7 +1034,7 @@ void aniadirFotoAUsuario(Usuario **q, int &dimension, int &util){
 * @ post Imprimirá las fotos del usuario escogido si tiene.
 
 */
-void imprimirFotosUsuario(Usuario **q, int &dimension, int &util){
+void imprimirFotosUsuario(Usuario **q, int &util){
 
 	
 	int posicion = 0;
@@ -1116,7 +1113,8 @@ void borrarFoto(Foto *a, int posicion){
 void borrarfotoAUsuario(Usuario *a){
 
 	int posicion = 0;
-
+	
+	if(a->totalFotosUsuario > 0){
 	do{
 		cout << YELLOW << "Que foto quiere borrar? Introduce su posicion " << 0 << " - " << a->totalFotosUsuario - 1 << " : " << RESTORE; 
 		cin >> posicion;
@@ -1133,6 +1131,7 @@ void borrarfotoAUsuario(Usuario *a){
 	a->v_fotos = resizeFotoDisminuir(a->v_fotos, a->dim_vfotos, a->totalFotosUsuario);
 	//cout << DEBUG << "dim: " << a->dim_vfotos << RESTORE << endl;
 	//cout << DEBUG << "totalf: " << a->totalFotosUsuario << RESTORE << endl;
+	}
 }
 
 /**
@@ -1145,7 +1144,7 @@ void borrarfotoAUsuario(Usuario *a){
 * @ post se eliminaran tanta fotos del usuario como se desee.
 
 */
-void eliminarFotoAUsuario(Usuario **q, int dimension, int util){
+void eliminarFotoAUsuario(Usuario **q, int util){
 
 	int posicion = 0;
 	int opcion = 0;
@@ -1157,7 +1156,7 @@ void eliminarFotoAUsuario(Usuario **q, int dimension, int util){
 		cout << YELLOW << "A que usuario quieres borrarle foto/s? Introduce su login: " << RESTORE; 
 		cin >> login;
 
-		for(int i = 0; i < util || encontrado == false; i++){
+		for(int i = 0; i < util  || encontrado == false; i++){
 
 				//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
 
@@ -1175,7 +1174,7 @@ void eliminarFotoAUsuario(Usuario **q, int dimension, int util){
 
 			imprimirTablaUser(q, posicion);
 			borrarfotoAUsuario(q[posicion]);
-			if(q[posicion]->dim_vfotos > 1){
+			if(q[posicion]->totalFotosUsuario > 0){
 			cout << YELLOW << "Quiere borrar otra foto? [1]Si, [2]No..." << RESTORE; cin >> opcion;
 			}
 
@@ -1211,7 +1210,7 @@ void setUsuarioCero(Usuario *a){
 
 }
 
-Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
+Usuario** eliminarUsuario(Usuario **q, int &util){
 
 	int posicion = 0;
 	string login;
@@ -1229,7 +1228,7 @@ Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
 		cout << YELLOW << "Que usuario quieres borrar? Introduce su login: " << RESTORE; 
 		cin >> login;
 
-		for(int i = 0; i < util || encontrado == false; i++){
+		for(int i = 0; i < util|| encontrado == false; i++){
 
 				//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
 
@@ -1262,7 +1261,7 @@ Usuario** eliminarUsuario(Usuario **q, int &dimension, int &util){
 
 	//cout << DEBUG << "dim: " << dimension << RESTORE << endl;
 	//cout << DEBUG << "util: "<< util << RESTORE << endl;
-	q = resizeDisminuir(q, dimension, util);
+	q = resizeDisminuir(q, util);
 	//cout << DEBUG << "dim: " << dimension << RESTORE << endl;
 	//cout << DEBUG << "util: "<< util << RESTORE << endl;
 
@@ -1280,20 +1279,22 @@ Usuario* setAlumnoEjemplo(Usuario *a, string login, string nombre, string apelli
 	b->nombre = nombre;
 	b->apellido = apellido;
 	b->perfil_usuario = perfil;
+
 	b->v_fotos = c;
+
 	b->dim_vfotos = dim;
 	b->totalFotosUsuario = fotos;
 
-	c = 0;
-	//cout << DEBUG << "direccion memoria a: " << a << RESTORE << endl;
 
-	delete [] a;
 	a = b;
 
-	//cout << DEBUG << "direccion memoria a despues: " << a << RESTORE << endl;
-	b = 0;
-
 	return a;
+	//c = 0;
+	//cout << DEBUG << "direccion memoria a: " << a << RESTORE << endl;
+	
+	//cout << DEBUG << "direccion memoria a despues: " << a << RESTORE << endl;
+
+	
 }
 
 void setFotosEjemplo(Foto &a, string ruta, string tipo, int tamanio){
@@ -1305,7 +1306,9 @@ void setFotosEjemplo(Foto &a, string ruta, string tipo, int tamanio){
 
 }
 
-void establecerAlumnosEjemplo(Usuario **q){
+Usuario** establecerAlumnosEjemplo(Usuario **q, int &util){
+
+
 
 	Foto *f;
 	f = new Foto [8];
@@ -1322,7 +1325,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(f[5], "/home/imagen6.jpeg", "jpeg", 200);
 	setFotosEjemplo(f[6], "/home/imagen7.jpeg", "jpeg", 200);
 
-	q[0] = setAlumnoEjemplo(q[0], "@Jose", "Jose", "Domene", "User", f, 8, 7);
+	q[util] = setAlumnoEjemplo(q[util], "@Jose", "Jose", "Domene", "User", f, 8, 7);
+	q = resizeAumentar(q, util);
 
 
 	Foto *h;
@@ -1339,8 +1343,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(h[4], "home/cristorey/Escritorio/trabajo5.png", "png", 200);
 	setFotosEjemplo(h[5], "home/cristorey/Escritorio/trabajo6.png", "png", 200);
 
-	q[1] = setAlumnoEjemplo(q[1], "@Antonio", "Antonio", "Segura", "User", h, 7, 6);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Antonio", "Antonio", "Segura", "User", h, 7, 6);
+	q = resizeAumentar(q, util);
 	
 
 	Foto *z;
@@ -1356,8 +1360,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(z[3], "home/cristorey/Documents/Ejemplo4.png", "png", 200);
 	setFotosEjemplo(z[4], "home/cristorey/Documents/Ejemplo5.png", "png", 200);
 
-	q[2] = setAlumnoEjemplo(q[2], "@Javier", "Javier", "Fernandez", "User", z, 6, 5);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Javier", "Javier", "Fernandez", "User", z, 6, 5);
+	q = resizeAumentar(q, util);
 	
 
 	Foto *r;
@@ -1372,8 +1376,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(r[2], "home/cristorey/Downloads/Rutina3.png", "png", 200);
 	setFotosEjemplo(r[3], "home/cristorey/Downloads/Rutina4.png", "png", 200);
 	
-	q[3] = setAlumnoEjemplo(q[3], "@Juandi", "Juan", "Pérez", "Admin", r, 5, 4);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Juandi", "Juan", "Perez", "Admin", r, 5, 4);
+	q = resizeAumentar(q, util);
 	
 
 	Foto *c;
@@ -1387,8 +1391,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(c[1], "home/cristorey/Downloads/Ejemplo3.png", "png", 200);
 	setFotosEjemplo(c[2], "home/cristorey/Downloads/Lavadora.png", "png", 200);
 	
-	q[4] = setAlumnoEjemplo(q[4], "@Matilde", "Matilde", "Alarcón", "Admin", c, 4, 3);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Matilde", "Matilde", "Alarcón", "Admin", c, 4, 3);
+	q = resizeAumentar(q, util);
 	
 
 	Foto *d;
@@ -1401,8 +1405,8 @@ void establecerAlumnosEjemplo(Usuario **q){
 	setFotosEjemplo(d[0], "home/cristorey/Downloads/Fortnite.png", "png", 200);
 	setFotosEjemplo(d[1], "home/cristorey/Downloads/Tostadora.png", "png", 210);
 
-	q[5] = setAlumnoEjemplo(q[5], "@Josema", "Josema", "Martinez", "User", d, 3, 2);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Josema", "Josema", "Martinez", "User", d, 3, 2);
+	q = resizeAumentar(q, util);
 	
 
 
@@ -1415,10 +1419,10 @@ void establecerAlumnosEjemplo(Usuario **q){
 
 	setFotosEjemplo(j[0], "home/cristorey/Downloads/pablete.png", "png", 200);
 
-	q[6] = setAlumnoEjemplo(q[6], "@Inma", "Inma", "Sanchez", "Admin", j, 2, 1);
-
+	q[util] = setAlumnoEjemplo(q[util], "@Inma", "Inma", "Sanchez", "Admin", j, 2, 1);
+	q = resizeAumentar(q, util);
 	
-
+	return q;
 
 }
 
@@ -1443,10 +1447,10 @@ TablaUsuarios* inicializarTabla(){
     }
 
     //cout << DEBUG << "debug totalTuplas: " << q->totalTuplas << RESTORE << endl;
-    q->totalTuplas = 8;
+    q->totalTuplas = 0;
 
     Usuario **a = 0;
-    a = new Usuario*[q->totalTuplas];
+    a = new Usuario*[1];
 
     //cout << DEBUG << "debug: " << q->totalTuplas << RESTORE << endl;
 
@@ -1508,7 +1512,7 @@ void menu(){
 
 	unsigned short int opcion;
 	TablaUsuarios *miTabla;
-	int util = 0;
+
 	bool tablaCreada = false;
 	bool primeraOpcion = true;
 
@@ -1567,20 +1571,21 @@ void menu(){
 		
 
 		case 1:
-			//cout << DEBUG << miTabla << RESTORE << endl;
+			
 			//cout << DEBUG << miTabla->punteroapuntero << RESTORE << endl;
 			miTabla = inicializarTabla();
-			establecerAlumnosEjemplo(miTabla->punteroapuntero);
-			util = 7;
+			miTabla->punteroapuntero = establecerAlumnosEjemplo(miTabla->punteroapuntero, miTabla->totalTuplas);
+			//getUsuario(miTabla->punteroapuntero[0]);
+			//cout << DEBUG << miTabla->totalTuplas << RESTORE << endl;
 			//cout << DEBUG << miTabla << RESTORE << endl;
 			//cout << DEBUG << miTabla->punteroapuntero << RESTORE << endl;
 		 	break;
 		case 2: 
 
-			eliminarTabla(miTabla, util); 
+			eliminarTabla(miTabla, miTabla->totalTuplas); 
+			//cout << DEBUG << miTabla->totalTuplas << RESTORE << endl;;
 			delete miTabla;
 			miTabla = 0;
-
 			primeraOpcion = true;
 			tablaCreada = false;
 			cout << MAGENTA << "********* Su tabla ha sido eliminada exitosamente. **********" << RESTORE << endl;
@@ -1589,32 +1594,32 @@ void menu(){
 
 		case 3: 
 			//cout << DEBUG << "dim "<< miTabla->punteroapuntero[0]->totalFotosUsuario << RESTORE << endl;
-			imprimirTabla(miTabla->punteroapuntero, util); 
+			imprimirTabla(miTabla->punteroapuntero, miTabla->totalTuplas); 
 			//cout << DEBUG << "sale " << RESTORE << endl;
 			break;
 
 		case 4: 
 			
-			miTabla->punteroapuntero = insertarUsuarioEnTablaUsuarios(miTabla->punteroapuntero, miTabla->totalTuplas, util); 
+			miTabla->punteroapuntero = insertarUsuarioEnTablaUsuarios(miTabla->punteroapuntero, miTabla->totalTuplas); 
 			
 			break;
 
 		case 5: 
 			//cout << DEBUG << "entra " << RESTORE << endl;
-			miTabla->punteroapuntero = eliminarUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); 
+			miTabla->punteroapuntero = eliminarUsuario(miTabla->punteroapuntero, miTabla->totalTuplas); 
 			//cout << DEBUG << "sale " << RESTORE << endl;
 			break;
 
-		case 6: buscarUsuarioPorLogin(miTabla->punteroapuntero, util); break;
-		case 7: ordenarTotalFotosoLogin(miTabla->punteroapuntero, util); break;
-		case 8: aniadirFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
-		case 9: eliminarFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
-		case 10: imprimirFotosUsuario(miTabla->punteroapuntero, miTabla->totalTuplas, util); break;
+		case 6: buscarUsuarioPorLogin(miTabla->punteroapuntero, miTabla->totalTuplas); break;
+		case 7: ordenarTotalFotosoLogin(miTabla->punteroapuntero, miTabla->totalTuplas); break;
+		case 8: aniadirFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas); break;
+		case 9: eliminarFotoAUsuario(miTabla->punteroapuntero, miTabla->totalTuplas); break;
+		case 10: imprimirFotosUsuario(miTabla->punteroapuntero, miTabla->totalTuplas); break;
 		//case 11: busquedaDeterminada(); break;
 		case 12: 
 
 			if(tablaCreada == false){
-				eliminarTabla(miTabla, util); 
+				eliminarTabla(miTabla, miTabla->totalTuplas); 
 				delete miTabla;
 				miTabla = 0;
 			}
