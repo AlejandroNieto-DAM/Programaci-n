@@ -1526,6 +1526,56 @@ void eliminarTabla(TablaUsuarios *a, int &util){
 
 }
 
+/**
+
+* @ brief Busca una palabra introducida entera o parcialmente en todas las fotos de los usuarios.
+* @ param **a que es el vector de punteros que contiene todos los usuarios.
+* @ param util que es el numero de usuarios que hay.
+* @ pre util != 0
+* @ return no devuelve nada.
+* @ param se mostrará por pantalla el usuario completo que tiene esa foto.
+
+*/
+void busquedaDeterminada(Usuario **a, int util){
+
+	string palabraBuscada;
+
+	char cadena1[80];
+	char cadena2[80];
+
+	Usuario **b;
+	b = new Usuario *[1];
+	int b_util = 0;
+
+	do{
+		cout << "Introduce el nombre/directorio de la imagen a buscar: "; 
+		cin >> palabraBuscada;
+	}while(palabraBuscada.length() > 80);
+
+	for(int i = 0; i < util; i++){
+		for(int j = 0; j < a[i]->totalFotosUsuario; j++){
+
+			strcpy(cadena1, a[i]->v_fotos[j].ruta.c_str());
+			strcpy(cadena2, palabraBuscada.c_str());
+
+			if(strstr(cadena1, cadena2) != 0){
+
+				b[b_util] = a[i];
+				b = resizeAumentar(b, b_util);
+
+			}
+		}
+	}
+
+	if(b_util != 0){
+		cout << "Se ha encontrado en: " << endl;
+		imprimirTabla(b, b_util);
+	} else {
+		cout << "No se ha encontrado :( " << endl;
+	}
+
+}
+
 
 /**
 
@@ -1692,7 +1742,16 @@ void menu(){
 			}
 
 			break;
-		//case 11: busquedaDeterminada(); break;
+		case 11: 
+
+			if(miTabla->totalTuplas != 0){ 
+				busquedaDeterminada(miTabla->punteroapuntero, miTabla->totalTuplas); 
+			} else {
+				cout << MAGENTA << "No hay usuarios :( " << RESTORE << endl;
+			}
+
+			break;
+
 		case 12: 
 
 			if(tablaCreada == false){
