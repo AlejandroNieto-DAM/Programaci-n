@@ -76,6 +76,7 @@ string getLogin(const Usuario *a);
 string getNombre(const Usuario *a);
 string getPerfil(const Usuario *a);
 string getApellido(const Usuario *a);
+int getTotalFotos(const Usuario *a);
 void getFotos(const Usuario *a);
 void getUsuario(const Usuario *a);
 void getUsuarioSinFotos(const Usuario *a);
@@ -120,6 +121,7 @@ Usuario** establecerAlumnosEjemplo(Usuario **q, int &tuplas);
 TablaUsuarios* inicializarTabla();
 void eliminarUsuarios(Usuario **q, int &util);
 void eliminarTabla(TablaUsuarios *a, int &util);
+void busquedaDeterminada(Usuario **a, int util);
 void menu();
 
 
@@ -528,6 +530,17 @@ string getPerfil(const Usuario *a){
 
 /**
 
+* @brief Devuelve el total de fotos de un usuario.
+* @return Devuelve un entero que es el numero de fotos del usuario.
+
+*/
+int getTotalFotos(const Usuario *a){
+	return a->totalFotosUsuario;
+}
+
+
+/**
+
 * @ brief Permite ver si se desea las fotos del usuario.
 * @ param *a que es el usuario del que queremos ver las fotos.
 * @ pre *a debe de tener su vector de fotos inicializado y al menos mantener 1 en su interior.
@@ -567,6 +580,7 @@ void getUsuario(const Usuario *a){
 	cout << "Nombre: " << getNombre(a) << endl;
 	cout << "Apellido: " << getApellido(a) << endl;
 	cout << "Perfil del Usuario: " << getPerfil(a) << endl;
+	cout << "Numero de fotos: " << getTotalFotos(a) << endl;
 	cout << RESTORE;
 	getFotos(a); 
 	cout << endl;
@@ -844,14 +858,14 @@ Usuario** insertarUsuarioEnTablaUsuarios(Usuario **a, int &util){
 	do{
 
 		repetido = false;
-		cout << DEBUG  << "util  " << util << RESTORE << endl;
+		//cout << DEBUG  << "util  " << util << RESTORE << endl;
 		a[util] = iniciaPersona(a[util]);
 		//cout << DEBUG  << "entra  " << RESTORE << endl;
 		
 		
-		cout << DEBUG  << "entra  " << RESTORE << endl;
+		//cout << DEBUG  << "entra  " << RESTORE << endl;
 		setUsuario(a[util]);
-		cout << DEBUG << "sale " << RESTORE << endl;
+		//cout << DEBUG << "sale " << RESTORE << endl;
 
 
 		for(int i = 0; i < util; i++){
@@ -1413,7 +1427,7 @@ Usuario** establecerAlumnosEjemplo(Usuario **q, int &util){
         exit(-1);
     }
 
-	setFotosEjemplo(c[0], "home/cristorey/Downloads/Trabajo.png", "png", 200);
+	setFotosEjemplo(c[0], "home/cristorey/Downloads/trabajo1.png", "png", 200);
 	setFotosEjemplo(c[1], "home/cristorey/Downloads/Ejemplo3.png", "png", 200);
 	setFotosEjemplo(c[2], "home/cristorey/Downloads/Lavadora.png", "png", 200);
 	
@@ -1533,7 +1547,7 @@ void eliminarTabla(TablaUsuarios *a, int &util){
 * @ param util que es el numero de usuarios que hay.
 * @ pre util != 0
 * @ return no devuelve nada.
-* @ param se mostrará por pantalla el usuario completo que tiene esa foto.
+* @ post se mostrará por pantalla el usuario completo que tiene esa foto.
 
 */
 void busquedaDeterminada(Usuario **a, int util){
@@ -1574,7 +1588,116 @@ void busquedaDeterminada(Usuario **a, int util){
 		cout << "No se ha encontrado :( " << endl;
 	}
 
+	for(int i = 0; i < b_util; i++){
+		b[i] = 0;
+	}
+	b = 0;
+
 }
+
+void visualizarFotos(Usuario **q, int util){
+
+	string command;
+	string command2;
+
+	string login;
+	int posicion = 0;
+
+	bool encontrado = false;
+
+		do{
+
+			cout << YELLOW << "De que usuario quieres ver las fotos? Introduce el login: " << RESTORE ; cin >> login;
+
+			for(int i = 0; i < util  || encontrado == false; i++){
+
+					//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
+
+					if(login == q[i]->login){
+						encontrado = true;
+						posicion = i;
+					}
+
+			}
+
+		}while(encontrado == false);
+
+		if(q[posicion]->totalFotosUsuario != 0){
+			imprimirTablaUser(q, posicion);
+		
+				do{
+				
+				
+					command = "open ";
+					command2 = "";
+					cout << YELLOW <<"Introduce el nombre de la imagen. [0] Para salir...: " << RESTORE;
+					cin >> command2;
+				
+						if(command2 != "0"){
+		
+							command = command + command2;
+							system(command.c_str());
+		
+						}
+				
+				}while(command2 != "0");
+		} else {
+			cout << YELLOW << "Este usuario no tiene fotos :( " << RESTORE << endl;
+		}
+
+}
+
+void funcionesExtraAdmin(Usuario **q, int util){
+
+	string login;
+
+	string contrasenia;
+	string passwd = "1234";
+	string admin = "Admin";
+
+	bool encontrado = false;
+
+
+	int posicion = 0;
+
+	do{
+
+		encontrado = false;
+
+		cout << YELLOW << "Eres ADMIN? Introduce el login: " << RESTORE; 
+		cin >> login;
+		cout << endl;
+		cout << YELLOW << "Introduce la contraseña: " << RESTORE; 
+		cin >> contrasenia;
+		cout << endl;
+
+		for(int i = 0; i < util|| encontrado == false; i++){
+
+				//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
+
+				if(login == q[i]->login){
+					encontrado = true;
+					posicion = i;
+				} 
+
+		}
+
+	}while(encontrado == false);
+
+	if(q[posicion]->perfil_usuario == admin && contrasenia == passwd){
+
+		cout << YELLOW <<"Loguead@ en modo Admin..." << RESTORE << endl;
+
+		visualizarFotos(q, util);
+	
+	} else if(q[posicion]->perfil_usuario != admin){
+		cout << MAGENTA << "Me da a mi que no eres Admin...Sorry... :( " << RESTORE << endl; 
+	} else if(contrasenia != passwd){
+		cout << MAGENTA << "Contraseña invalida! Try again..." << RESTORE << endl;
+	}
+}
+
+
 
 
 /**
@@ -1594,8 +1717,8 @@ void menu(){
 	do{
 	 
 	 cout << GREEN;
-	 cout << "\nBIENVENIDO AL PROGRAMA DE LA PRACTICA FINAL DEL 2º TRIMESTRE." << endl;
-	 cout << "*************************************************************" << endl;
+	 cout << "\nBIENVENIDO AL CRISTOBOOK PRACTICA FINAL DEL 2º TRIMESTRE." << endl;
+	 cout << "***********************************************************" << endl;
 	 cout << RESTORE;
 	 cout << CYAN;
 	 cout << "* Elija una de las siguientes opciones: " << endl;
@@ -1610,7 +1733,8 @@ void menu(){
 	 cout << "* Eliminar Fotografia a Usuario -----------------------[9]" << endl;
 	 cout << "* Imprimir Fotografias de un Usuario ------------------[10]" << endl;
 	 cout << "* Usuarios con Determinada Foto -----------------------[11]" << endl;
-	 cout << "* SALIR -----------------------------------------------[12]" << endl;
+	 cout << "* Funciones extra ADMIN -------------------------------[12]" << endl;
+	 cout << "* SALIR -----------------------------------------------[13]" << endl;
 	 cout << RESTORE;
 
 	if(primeraOpcion == true){
@@ -1632,10 +1756,13 @@ void menu(){
 	} else {
 
 		do{
-
+			
 			cin >> opcion;
+			if(tablaCreada == true && opcion == 1){
+			cout << MAGENTA << "Su tabla ya ha sido creada. Introduzca otra opción..." << RESTORE;
+		}
 			//cout << DEBUG << "debug: " << opcion << RESTORE << endl;
-		}while(opcion < 2 || opcion > 12);
+		}while(opcion < 2 || opcion > 13);
 
 	}
 
@@ -1752,20 +1879,30 @@ void menu(){
 
 			break;
 
-		case 12: 
+		case 12:
+
+			if(miTabla->totalTuplas != 0){ 
+				funcionesExtraAdmin(miTabla->punteroapuntero, miTabla->totalTuplas); 
+			} else {
+				cout << MAGENTA << "No hay usuarios :( " << RESTORE << endl;
+			}
+			break;
+
+		case 13: 
 
 			if(tablaCreada == false){
 				eliminarTabla(miTabla, miTabla->totalTuplas); 
 				delete miTabla;
 				miTabla = 0;
 			}
+
 			cout << YELLOW <<"******** Gracias por haber utilizado el programa :) *********" << RESTORE << endl; 
 
 			break;
 
 	}
 
-	}while(opcion != 12);
+	}while(opcion != 13);
 
 }
 
