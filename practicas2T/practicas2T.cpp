@@ -868,7 +868,7 @@ void buscarUsuarioPorLogin(Usuario **q, int util){
 
 	cout << YELLOW << "Que usuario quiere buscar? Escriba su login a continuacion: " << RESTORE; cin >> login;
 
-	for(int i = 0; i < util  || encontrado == false; i++){
+	for(int i = 0; i < util; i++){
 
 			//cout << DEBUG << "iteracion: " << i << RESTORE << endl;
 
