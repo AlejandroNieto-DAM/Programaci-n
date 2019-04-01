@@ -1480,7 +1480,7 @@ void visualizarFotos(Usuario **q, int util){
 		
 				do{
 						
-					command = "gnome-open ";
+					command = "open ";
 					command2 = "";
 					cout << YELLOW <<"Introduce el nombre de la imagen. [0] Para salir...: " << RESTORE;
 					cin >> command2;
