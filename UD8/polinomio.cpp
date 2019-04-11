@@ -183,15 +183,38 @@ class Polinomio{
 		*/
 		void sumarV2(const Polinomio &p2,const Polinomio &p3);
 
+		/*
+
+		 * @brief Suma dos polinomios y devuelve los valores del nuevo polinomio.
+		 * @param a que es el polinomio que sumaremos al polinomio al que pertenece este polinomio.
+		 * @pre 
+		 * @post El resultado sera devuelto y almacenado en otro polinomio.
+
+		*/
+		Polinomio operator+(const Polinomio &a);
+
+		/*
+
+		 * @brief Suma dos polinomios y devuelve el puntero del nuevo polinomio.
+		 * @param a que es el puntero del polinomio que sumaremos al polinomio al que pertenece este metodo.
+		 * @pre 
+		 * @post El puntero del nuevo objeto será devuelto.
+
+		*/
+		Polinomio* sumarV4(const Polinomio *a);
+
+		Polinomio& operator=(const Polinomio &p);
+		
 
 };
 
 
-/*Polinomio::Polinomio{
+
+Polinomio::Polinomio(){
 
 	//cout << DEBUG << "debug: polinomio " << RESTORE << endl;
 
-	coef = new float [10];
+	coef = new float [1];
 	max_grado = 0;
 	grado = 0;
 	
@@ -199,7 +222,7 @@ class Polinomio{
 		coef[i] = 0;
 	}
 
-}*/
+}
 
 Polinomio::Polinomio(int maxGrado){
 
@@ -525,6 +548,99 @@ void Polinomio::sumarV2(const Polinomio &p2,const Polinomio &p3){
 
 }
 
+Polinomio Polinomio::operator+(const Polinomio &a){
+
+	Polinomio p3 (2);
+
+	if(this->getGrado() >= a.getGrado()){
+
+		for(int i = 0; i <= this->getGrado(); i++){	
+			
+			if(i <= a.getGrado()){
+				p3.setCoeficienteV3(i, (this->getCoeficiente(i) + a.getCoeficiente(i)));
+			} else {
+				p3.setCoeficienteV3(i, this->getCoeficiente(i));
+			}
+		}
+
+
+	} else {
+
+		for(int i = 0; i <= getGrado(); i++){	
+			p3.setCoeficienteV3(i, (this->getCoeficiente(i) + a.getCoeficiente(i)));
+		}
+
+		for(int i = getGrado() + 1 ; i <= a.getGrado(); i++){
+			p3.setCoeficienteV3(i, a.getCoeficiente(i));
+		}
+
+	}
+
+	return p3;
+
+}
+
+Polinomio* Polinomio::sumarV4(const Polinomio *a){
+
+	Polinomio *p3;
+	p3 = new Polinomio(2);
+
+	if(this->getGrado() >= a->getGrado()){
+
+		for(int i = 0; i <= a->getGrado(); i++){	
+			p3->setCoeficienteV3(i, (this->getCoeficiente(i) + a->getCoeficiente(i)));
+		}
+
+	} else {
+
+		for(int i = 0; i <= getGrado(); i++){	
+			p3->setCoeficienteV3(i, (this->getCoeficiente(i) + a->getCoeficiente(i)));
+		}
+
+		for(int i = this->getGrado() + 1 ; i <= a->getGrado(); i++){
+			p3->setCoeficienteV3(i, a->getCoeficiente(i));
+		}
+
+	}
+
+	return p3;
+
+}
+
+Polinomio& Polinomio::operator=(const Polinomio &p){
+	if(&p != this){
+		delete [] this->coef;
+		this->max_grado = p.max_grado;
+		this->grado = p.grado;
+		this->coef = new float [this->max_grado + 1];
+		for(int i = 0; i <= max_grado; i++){
+			this->coef[i] = p.coef[i];
+		}
+	}
+
+	return *this;
+}
+
+ostream& operator<<(ostream &flujo, const Polinomio &p){
+	
+	if(p.getGrado() != 0){
+		for(int i = p.getGrado(); i >= 1; i--){
+			if(p.getCoeficiente(i) != 0){
+				flujo << p.getCoeficiente(i) << "x^" << i << " ";
+			} 
+		}
+
+		if (p.getCoeficiente(0) != 0){
+			flujo << p.getCoeficiente(0);
+			
+		}
+		flujo << endl;
+	} else {
+		flujo << USER << "El polinomio esta completamente a 0 :( " << endl;
+	}
+	return flujo;
+}
+
 
 
 int main(){
@@ -587,6 +703,43 @@ int main(){
 	p4.print();
 	cout << endl;
 
+	cout << USER << "Con la sobrecarga del operador..." << RESTORE << endl;
+
+	Polinomio res (2);
+	res = p1 + p2;
+	res.print();
+	cout << USER << "Fin..." << RESTORE << endl;
+
+
+
+	Polinomio *p5;
+	p5 = new Polinomio(3);
+
+	p5->setCoeficienteV3(1, 3.0);	
+	p5->setCoeficienteV3(2, 4.0);
+	p5->setCoeficienteV3(0, 1.0);
+	p5->print();
+
+	Polinomio *p6;
+	p6 = new Polinomio(3);
+
+	p6->setCoeficienteV3(0, 0.0);
+	p6->setCoeficienteV3(1, 3.0);
+	p6->setCoeficienteV3(2, 4.0);
+	p6->setCoeficienteV3(200, 1.0);
+	p6->print();
+
+	cout << USER << "Inicializados P5 y P6 " << RESTORE << endl;
+
+	Polinomio *res2;
+	res2 = new Polinomio(2);
+
+	res2 = p5->sumarV4(p6);
+
+	res2->print();
+
+	cout << *res2 << endl;
+	cout << res << endl;
 
 
 }
