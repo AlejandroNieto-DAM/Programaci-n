@@ -204,7 +204,68 @@ class Polinomio{
 		Polinomio* sumarV4(const Polinomio *a);
 
 		Polinomio& operator=(const Polinomio &p);
+
+		friend ostream& operator<<(ostream &flujo, const Polinomio &p);
+		friend istream& operator>>(istream &flujo, const Polinomio &p);
 		
+
+};
+
+class Vista{
+
+	private: 
+
+		Polinomio **q;
+		int dimension;
+
+		/*
+	
+		 * @brief Aumenta la dimension del vector de punteros a punteros de polinomio.
+		 * @pre 
+		 * @post El vector quedará aumentado en 1.
+		 * @ver 1.0
+		 * @author Alejandro Nieto.
+		 
+		*/
+		Polinomio** resizeAumentarV();
+
+
+		/*
+	
+		 * @brief Disminuye la dimension del vector de punteros a punteros de polinomio.
+		 * @pre 
+		 * @post El vector quedará disminuido en 1.
+		 * @ver 1.0
+		 * @author Alejandro Nieto.
+		 
+		*/
+		Polinomio** resizeDisminuirV();
+
+	public:
+
+		/**
+		*/
+		Vista();
+
+		/**
+		*/
+		void printMenu();
+
+		/**
+		*/
+		void crearPolinomioUsuario();
+
+		/**
+		*/
+		void eliminarPolinomioUsuario();
+
+		/**
+		*/
+		void mostrarPolinomios();
+
+		/**
+		*/
+		~Vista();
 
 };
 
@@ -218,7 +279,7 @@ Polinomio::Polinomio(){
 	max_grado = 0;
 	grado = 0;
 	
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 1; i++){
 		coef[i] = 0;
 	}
 
@@ -641,10 +702,185 @@ ostream& operator<<(ostream &flujo, const Polinomio &p){
 	return flujo;
 }
 
+istream& operator>>(istream &flujo, Polinomio &p){
+
+	int g;
+	float v;
+
+	do{
+		flujo >> v >> g;
+		if(g >= 0){
+			p.setCoeficienteV3(g, v);
+		}
+	}while(g >= 0);
+	return flujo;
+}
+
+Vista::Vista(){
+	//cout << DEBUG << "debug: constructor vista " << RESTORE << endl;
+	q = new Polinomio *[1];
+	dimension = 0;
+}
+
+void Vista::crearPolinomioUsuario(){
+	//cout << DEBUG << "debug: crearPolinomioUsuario " << RESTORE << endl;
+	Polinomio *p = new Polinomio (1);
+	cin >> *p;
+	q[dimension] = p;
+	q = resizeAumentarV();
+	cout << dimension << endl;
+	
+
+}
+
+void Vista::eliminarPolinomioUsuario(){
+	//cout << DEBUG << "debug: eliminarPolinomioUsuario " << RESTORE << endl;
+	int polinomioABorrar = 0;
+	
+	mostrarPolinomios();
+
+	cout << "Que polinomio quiere borrar? " << endl;
+	cin >> polinomioABorrar;
+
+	Polinomio *c = new Polinomio (2);
+
+	c = q[dimension - 1];
+	q[dimension - 1] = q[polinomioABorrar];
+	q[polinomioABorrar] = c;
+
+	*(q[dimension - 1]) = 0;
+
+	q = resizeDisminuirV();
+	//cout << DEBUG << dimension << RESTORE << endl;
+}
+
+void Vista::printMenu(){
+
+	//cout << DEBUG << "debug: printMenu " << RESTORE << endl;
+
+	unsigned int option = 0;
+
+	do{
+		cout << USER << "Bienvenido..." << RESTORE << endl;
+		cout << USER << "[1]Añadir un polinomio." << RESTORE << endl;
+		cout << USER << "[2]Eliminar un polinomio." << RESTORE << endl;
+		cout << USER << "[3]Mostrar todos los polinomios." << RESTORE << endl;
+		cout << USER << "[4]Salir..." << RESTORE << endl;
+
+		cin >> option;
+
+		switch(option){
+			case 1: this->crearPolinomioUsuario();
+
+				break;
+
+			case 2: this->eliminarPolinomioUsuario();
+
+				break;
+
+			case 3: this->mostrarPolinomios();
+
+				break;
+
+			case 4: cout << USER << "Gracias por usar nuestro programa..." << RESTORE << endl;
+
+				break;
+		}
+	}while(option != 4);
+}
+
+
+Vista::~Vista(){
+	//cout << DEBUG << "debug: destructor vista " << RESTORE << endl;
+	for(int i = 0; i < dimension; i++){
+	 	delete q[i];
+	 	q[i] = 0;
+	}
+
+	delete [] q;
+	q = 0;
+	dimension = 0;
+}
+
+Polinomio** Vista::resizeDisminuirV(){
+
+	//cout << DEBUG << "debug: resize vista disminuir " << RESTORE << endl;
+	int nuevaDim = dimension - 1;
+
+	Polinomio **auxiliar;
+	auxiliar = new Polinomio *[nuevaDim + 1];
+
+	if (auxiliar == 0){
+        cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
+        exit(-1);
+    }
+
+    for(int i = 0; i <= nuevaDim; i++){
+		auxiliar[i] = 0;
+	}
+
+    for(int i = 0; i < nuevaDim; i++){
+    	auxiliar[i] = q[i];
+    }
+
+    delete [] q;
+
+    q = auxiliar;
+
+    dimension = nuevaDim;
+
+    auxiliar = 0;
+
+    return q;
+}
+
+Polinomio** Vista::resizeAumentarV(){
+	//cout << DEBUG << "debug: resize vista aumentar " << RESTORE << endl;
+
+	int nuevaDim = dimension + 1;
+
+	Polinomio **auxiliar;
+	auxiliar = new Polinomio *[nuevaDim + 1];
+
+	if (auxiliar == 0){
+        cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
+        exit(-1);
+    }
+
+    for(int i = 0; i <= nuevaDim + 1; i++){
+		auxiliar[i] = 0;
+	}
+
+
+    for(int i = 0; i <= dimension; i++){
+    	auxiliar[i] = q[i];
+    }
+
+    
+
+    delete [] q;
+
+    q = auxiliar;
+
+    dimension = nuevaDim;
+
+    auxiliar = 0;
+
+    return q;
+
+}
+
+void Vista::mostrarPolinomios(){
+	//cout << DEBUG << "debug: mostrarPolinomios " << RESTORE << endl;
+	for(int i = 0; i < dimension; i++){
+		cout << USER << "Polinomio " << i << " : " <<  *(q[i]) << RESTORE << endl;
+	}
+}
+
 
 
 int main(){
-
+/*
 	//Polinomio p1;
 	//Polinomio p2;
 
@@ -684,10 +920,10 @@ int main(){
 	//cout << USER << "Coeficiente de grado 1 del Polinomio nº1: " << p1.getCoeficiente(3) << RESTORE << endl;
 	//cout << USER << "Coeficiente de grado 3 del Polinomio nº2: " << p2.getCoeficiente(3) << RESTORE << endl;
 
-	/*Polinomio p3 (p1);
+	Polinomio p3 (p1);
 	cout << USER << "Polinomio nº3: " << RESTORE << endl;
 	p3.print();
-	cout << endl; */
+	cout << endl; 
 
 	//cout << USER << "Sumando..." << RESTORE << endl;
 	//p1.sumaPolinomiosV1(p2);
@@ -740,6 +976,10 @@ int main(){
 
 	cout << *res2 << endl;
 	cout << res << endl;
+*/
+
+	Vista c;
+	c.printMenu();
 
 
 }
