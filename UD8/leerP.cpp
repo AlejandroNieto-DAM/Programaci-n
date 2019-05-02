@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
+#include <string>
 using namespace std;
 
 class Polinomio{
@@ -218,106 +220,6 @@ class Polinomio{
 		 * @brief Sobrecarga del operador << cuando hay un polinomio para que se pueda introducir.
 		*/
 		friend istream& operator>>(istream &flujo, const Polinomio &p);
-
-};
-
-class Vista{
-
-	private: 
-
-		Polinomio **q;
-		int dimension;
-
-		/*
-	
-		 * @brief Aumenta la dimension del vector de punteros a punteros de polinomio.
-		 * @pre debe de haberse introducido un polinomio.
-		 * @post El vector quedará aumentado en 1.
-		 * @version: 1.0
-		 * @author Alejandro Nieto.
-		 
-		*/
-		Polinomio** resizeAumentarV();
-
-
-		/*
-	
-		 * @brief Disminuye la dimension del vector de punteros a punteros de polinomio.
-		 * @pre debe de haberse borrado un polinomio.
-		 * @post El vector quedará disminuido en 1.
-		 * @version: 1.0
-		 * @author Alejandro Nieto.
-		 
-		*/
-		Polinomio** resizeDisminuirV();
-
-	public:
-
-		/*
-
-		 * @brief Inicializa una variable vista creando su vector de punteros a polinomios y asignando a 0 sus atributos.
-		 * @post El vector de punteros a punteros quedará inicializado.
-		 * @post La dimensión quedará inicializada a 0.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		Vista();
-
-		/**
-
-		 * @brief Muestra un menú en el que se podrán realizar determinadas acciones.
-		 * @pre Debe de accerderse a el mediante una variable tipo vista.
-		 * @post Se mostrará todo por pantalla.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		void printMenu();
-
-		/**
-
-		 * @brief Crea un nuevo polinomio que introduce el propio usuario y quedará introducido en el vector que contiene una variable tipo vista.
-		 * @pre Debe de accederse mediante el printMenu
-		 * @post La dimension aumentará en 1 y quedará guardado.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		void crearPolinomioUsuario();
-
-		/**
-
-		 * @brief Elimina mediante una posicion el polinomio deseado dentro del vector.
-		 * @pre Debe de accederse mediante el printMenu
-		 * @post La dimension disminuirá en 1 y quedará borrado.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		void eliminarPolinomioUsuario();
-
-		/**
-
-		 * @brief Muestra todos los polinomios dentro del vector.
-		 * @pre Debe de accederse mediante el printMenu
-		 * @post Todos los polinomios existentes seran mostrados por pantalla.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		void mostrarPolinomios();
-
-		/*
-
-		 * @brief Destruye la variable tipo vista asignando a 0 todos sus atributos.
-		 * @pre La variable tipo vista debe estar creada.
-		 * @post La variable tipo vista quedará destruida.
-		 * @version: 1.0
-		 * @author: Alejandro Nieto.
-
-		*/
-		~Vista();
 
 };
 
@@ -768,267 +670,38 @@ istream& operator>>(istream &flujo, Polinomio &p){
 	return flujo;
 }
 
-Vista::Vista(){
-	//cout << DEBUG << "debug: constructor vista " << RESTORE << endl;
-	q = new Polinomio *[1];
-	dimension = 0;
-}
-
-void Vista::crearPolinomioUsuario(){
-	//cout << DEBUG << "debug: crearPolinomioUsuario " << RESTORE << endl;
-	Polinomio *p = new Polinomio (1);
-	cin >> *p;
-	q[dimension] = p;
-	q = resizeAumentarV();
-}
-
-void Vista::eliminarPolinomioUsuario(){
-	//cout << DEBUG << "debug: eliminarPolinomioUsuario " << RESTORE << endl;
-	int polinomioABorrar = 0;
-	
-	mostrarPolinomios();
-
-	cout << "Que polinomio quiere borrar? " << endl;
-	cin >> polinomioABorrar;
-
-	Polinomio *c = new Polinomio (2);
-
-	c = q[dimension - 1];
-	q[dimension - 1] = q[polinomioABorrar];
-	q[polinomioABorrar] = c;
-
-	*(q[dimension - 1]) = 0;
-
-	q = resizeDisminuirV();
-	//cout << DEBUG << dimension << RESTORE << endl;
-}
-
-void Vista::printMenu(){
-
-	//cout << DEBUG << "debug: printMenu " << RESTORE << endl;
-
-	unsigned int option = 0;
-
-	do{
-		cout << USER << "Bienvenido..." << RESTORE << endl;
-		cout << USER << "[1]Añadir un polinomio." << RESTORE << endl;
-		cout << USER << "[2]Eliminar un polinomio." << RESTORE << endl;
-		cout << USER << "[3]Mostrar todos los polinomios." << RESTORE << endl;
-		cout << USER << "[4]Salir..." << RESTORE << endl;
-
-		cin >> option;
-
-		switch(option){
-			case 1: this->crearPolinomioUsuario();
-
-				break;
-
-			case 2: this->eliminarPolinomioUsuario();
-
-				break;
-
-			case 3: this->mostrarPolinomios();
-
-				break;
-
-			case 4: cout << USER << "Gracias por usar nuestro programa..." << RESTORE << endl;
-
-				break;
-		}
-	}while(option != 4);
-}
-
-
-Vista::~Vista(){
-	//cout << DEBUG << "debug: destructor vista " << RESTORE << endl;
-	for(int i = 0; i < dimension; i++){
-	 	delete q[i];
-	 	q[i] = 0;
-	}
-
-	delete [] q;
-	q = 0;
-	dimension = 0;
-}
-
-Polinomio** Vista::resizeDisminuirV(){
-
-	//cout << DEBUG << "debug: resize vista disminuir " << RESTORE << endl;
-	int nuevaDim = dimension - 1;
-
-	Polinomio **auxiliar;
-	auxiliar = new Polinomio *[nuevaDim + 1];
-
-	if (auxiliar == 0){
-        cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-        exit(-1);
-    }
-
-    for(int i = 0; i <= nuevaDim; i++){
-		auxiliar[i] = 0;
-	}
-
-    for(int i = 0; i < nuevaDim; i++){
-    	auxiliar[i] = q[i];
-    }
-
-    delete [] q;
-
-    q = auxiliar;
-
-    dimension = nuevaDim;
-
-    auxiliar = 0;
-
-    return q;
-}
-
-Polinomio** Vista::resizeAumentarV(){
-	//cout << DEBUG << "debug: resize vista aumentar " << RESTORE << endl;
-
-	int nuevaDim = dimension + 1;
-
-	Polinomio **auxiliar;
-	auxiliar = new Polinomio *[nuevaDim + 1];
-
-	if (auxiliar == 0){
-        cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-        exit(-1);
-    }
-
-    for(int i = 0; i <= nuevaDim + 1; i++){
-		auxiliar[i] = 0;
-	}
-
-
-    for(int i = 0; i <= dimension; i++){
-    	auxiliar[i] = q[i];
-    }
-
-    
-
-    delete [] q;
-
-    q = auxiliar;
-
-    dimension = nuevaDim;
-
-    auxiliar = 0;
-
-    return q;
-
-}
-
-void Vista::mostrarPolinomios(){
-	//cout << DEBUG << "debug: mostrarPolinomios " << RESTORE << endl;
-	for(int i = 0; i < dimension; i++){
-		cout << USER << "Polinomio " << i << " : " <<  *(q[i]) << RESTORE << endl;
-	}
-}
-
-
-
 int main(){
 
-	//Polinomio p1;
-	//Polinomio p2;
+	Polinomio p1;
 
-	Polinomio p1 (3);
-	Polinomio p2 (5);
+	float coeficiente = 0.0;
+	int grado = 0;
 
-	p1.setCoeficienteV3(0, 0.0);
-	p1.setCoeficienteV3(1, 3.0);
-	p1.setCoeficienteV3(2, 4.0);
-	//p1.setCoeficienteV3(3, 1.0);
-	p1.setCoeficienteV3(200, 1.0);
-	//p1.setCoeficienteV3(43, 0.0);
-	cout << USER << "Grado del Polinomio nº1: " << p1.getGrado() << RESTORE << endl;
-	cout << USER << "GradoMax del Polinomio nº1: " << p1.getMaxGrado() << RESTORE << endl;
-	cout << USER << "Polinomio nº1: " << RESTORE << endl;
-	p1.print();
-	cout << endl;
+	string nombre_fich = "antonio.txt";
 
-	cout << USER << "**** Ya hemos inicializado el Polinomio nº1 *******" << RESTORE << endl;
+	ofstream fs;
+	fs.open(nombre_fich.c_str());
 
-	//p2.setCoeficienteV3(200, -9.1);
-	//cout << USER << "Grado del Polinomio nº2: " << p2.getMaxGrado() << RESTORE << endl;
-	p2.setCoeficienteV3(1, 3.0);	
-	p2.setCoeficienteV3(2, 4.0);
-	p2.setCoeficienteV3(0, 1.0);
-	//p2.setCoeficienteV3(3, 1.0);
-	//p2.setCoeficienteV3(43, 1.0);
-	//p2.setCoeficienteV3(43, 0.0);
-	cout << USER << "Grado del Polinomio nº2: " << p2.getGrado() << RESTORE << endl;
-	cout << USER << "GradoMax del Polinomio nº2: " << p2.getMaxGrado() << RESTORE << endl;
-	cout << USER << "Polinomio nº2: " << RESTORE << endl;
-	p2.print();
-	cout << endl; 
+		cin >> p1;
+		for(int i = 0; i <= p1.getGrado(); i++){
+			fs << i << " " << p1.getCoeficiente(i) << endl;
+		}
 
-	cout << USER << "**** Ya hemos inicializado el Polinomio nº2 *******" << RESTORE << endl;
-	
-	//cout << USER << "Coeficiente de grado 1 del Polinomio nº1: " << p1.getCoeficiente(3) << RESTORE << endl;
-	//cout << USER << "Coeficiente de grado 3 del Polinomio nº2: " << p2.getCoeficiente(3) << RESTORE << endl;
-
-	Polinomio p3 (p1);
-	cout << USER << "Polinomio nº3: " << RESTORE << endl;
-	p3.print();
-	cout << endl; 
-
-	//cout << USER << "Sumando..." << RESTORE << endl;
-	//p1.sumaPolinomiosV1(p2);
-	//cout << USER << "Resultado de la suma de los polinomios: " << RESTORE << endl;
-	//p1.print();
-	//cout << endl;
-
-	Polinomio p4 (2);
-	cout << USER << "SumandoV2..." << RESTORE << endl;
-	p4.sumarV2(p1, p2);
-
-	cout << USER << "Resultado 2 de la suma de los polinomios: " << RESTORE << endl;
-	p4.print();
-	cout << endl;
-
-	cout << USER << "Con la sobrecarga del operador..." << RESTORE << endl;
-
-	Polinomio res (2);
-	res = p1 + p2;
-	res.print();
-	cout << USER << "Fin..." << RESTORE << endl;
+	fs.close();
 
 
+	Polinomio p2;
 
-	Polinomio *p5;
-	p5 = new Polinomio(3);
+	ifstream fe;
+	fe.open(nombre_fich.c_str());
 
-	p5->setCoeficienteV3(1, 3.0);	
-	p5->setCoeficienteV3(2, 4.0);
-	p5->setCoeficienteV3(0, 1.0);
-	p5->print();
+	do{
+		fe >> grado >> coeficiente;
+		p2.setCoeficienteV3(grado, coeficiente);
+	}while(!fe.eof());
 
-	Polinomio *p6;
-	p6 = new Polinomio(3);
+	fe.close();
 
-	p6->setCoeficienteV3(0, 0.0);
-	p6->setCoeficienteV3(1, 3.0);
-	p6->setCoeficienteV3(2, 4.0);
-	p6->setCoeficienteV3(200, 1.0);
-	p6->print();
-
-	cout << USER << "Inicializados P5 y P6 " << RESTORE << endl;
-
-	Polinomio *res2;
-	res2 = new Polinomio(2);
-
-	res2 = p5->sumarV4(p6);
-
-	res2->print();
-
-	cout << *res2 << endl;
-	cout << res << endl;
-
-
-	Vista c;
-	c.printMenu();
-
-
+	cout << p1;
+	cout << p2;
 }
