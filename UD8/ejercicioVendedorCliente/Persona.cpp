@@ -35,11 +35,3 @@ void Persona::print() const{
     cout << "Nombre: " << this->nombre << endl;
     cout << "Edad: " << this->edad << endl;
 }
-
-Persona& Persona::operator=(const Persona &v){
-    this->DNI = v.getDNI();
-    this->nombre = v.getNombre();
-    this->edad = v.getEdad();
-
-    return *this;  
-}

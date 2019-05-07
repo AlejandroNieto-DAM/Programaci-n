@@ -11,6 +11,15 @@
 #include <iostream>
 #include <stdlib.h>
 
+Vendedor::Vendedor(): Persona() {
+    this->dim_actual = 1;
+    this->utiles = 0;
+    this->vector_clientes = new Cliente[this->dim_actual];
+    if (!this->vector_clientes){
+        cerr << "Error en la creación del vector de clientes" << endl;
+        exit(-1);
+    }
+}
 
 Vendedor::Vendedor(const Vendedor &v){
     this->DNI = v.getDNI();
@@ -31,6 +40,16 @@ Vendedor::Vendedor(const Vendedor &v){
     //Copio los valores
     for (int i=0; i < this->dim_actual; i++)
         this->vector_clientes[i] = v.vector_clientes[i];
+}
+
+Vendedor::Vendedor(string DNI, string nombre, int edad): Persona(DNI, nombre, edad){
+    this->dim_actual = 1;
+    this->utiles = 0;
+    this->vector_clientes = new Cliente[this->dim_actual];
+    if (!this->vector_clientes){
+        cerr << "Error en la creación del vector de clientes" << endl;
+        exit(-1);
+    }
 }
 
 Vendedor::~Vendedor(){

@@ -22,28 +22,20 @@ class Vendedor: public Persona {
         int dim_actual;
         int utiles;
 
+         /**
+         * @brief Aumenta la dimension del vector de clientes de vendedor.
+         * @pre utiles == dimension
+         * @post El vector quedará aumentado en 1.
+        */
+        Cliente* resizeAumentar();
+         
+
     public:
         //Funcionalidad Mínima
-        Vendedor(): Persona() {
-                this->dim_actual = 1;
-                this->utiles = 0;
-                this->vector_clientes = new Cliente[this->dim_actual];
-                if (!this->vector_clientes){
-                    cerr << "Error en la creación del vector de clientes" << endl;
-                    exit(-1);
-                }
-        };
+        Vendedor();
         //Constructor por parámetros
         Vendedor(const Vendedor& v);
-        Vendedor(string DNI, string nombre, int edad): Persona(DNI, nombre, edad){
-                    this->dim_actual = 1;
-                    this->utiles = 0;
-                    this->vector_clientes = new Cliente[this->dim_actual];
-                    if (!this->vector_clientes){
-                        cerr << "Error en la creación del vector de clientes" << endl;
-                        exit(-1);
-                     }
-        };
+        Vendedor(string DNI, string nombre, int edad);
         //Destructor de la clase Vendedor
         ~Vendedor();
         //Los GETS
@@ -60,13 +52,6 @@ class Vendedor: public Persona {
          */
         void vender(const Cliente &c);
 
-        /**
-         * @brief Aumenta la dimension del vector de clientes de vendedor.
-         * @pre utiles == dimension
-         * @post El vector quedará aumentado en 1.
-        */
-        Cliente* resizeAumentar();
-         
         /**
          *@brief Me devuelve el cliente que está en la posición "pos"
           * del vector de clientes del objeto

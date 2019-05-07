@@ -56,19 +56,19 @@ int main(){
 	Jose.getCliente(0);
 	cout << endl;
 
-	//cout << "Jose print " << endl;
+	cout << "Jose print " << endl;
 	cout << "******* Imprimimos el vendedor Jose al completo con todos sus clientes *******" << endl;
 	Jose.print();
 
 	//Prueba del operador = en vendedor
 	
-	/*Luis = Jose; 
+	Luis = Jose; 
 	cout << "Luis print " << endl;
 	Luis.print();
-	*/
+	
 
-	//Cliente raul("12345678B", "Raul", 18);
-	//raul.print();
+	Cliente raul("12345678B", "Raul", 18);
+	raul.print();
 	
 	
 }

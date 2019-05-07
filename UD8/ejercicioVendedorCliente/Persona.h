@@ -24,8 +24,6 @@ class Persona {
         inline string getDNI() const { return this->DNI; }
         inline string getNombre() const { return this->nombre; }
         inline int getEdad() const { return this->edad; }
-        //SOBRECARGA DE OPERADOR =
-        Persona& operator=(const Persona &v);
         //PRINT
         void print() const;
 
