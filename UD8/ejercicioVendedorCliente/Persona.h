@@ -15,7 +15,7 @@ class Persona {
         Persona();
         Persona(const Persona& v);
         Persona(string DNI, string nombre, int edad);
-        ~Persona();
+        virtual ~Persona();
         //Los SETS
         inline void setDNI(string DNI) { this->DNI = DNI; }
         inline void setNombre(string nombre) { this->nombre = nombre; }
@@ -25,7 +25,7 @@ class Persona {
         inline string getNombre() const { return this->nombre; }
         inline int getEdad() const { return this->edad; }
         //PRINT
-        void print() const;
+        virtual void print() const;
 
 };
 

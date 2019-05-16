@@ -42,8 +42,8 @@ int main(){
   m1.orinar();
   p1.orinar();
 
-/*
-  /*Veamos la potencia del polimorfismo
+
+ // Veamos la potencia del polimorfismo
   cout << "VEAMOS LA POTENCIA DEL POLIMORFISMO" << endl;
   Persona *p; //PODEMOS TRABAJAR CON PUNTEROS A PERSONA!!
   p=&h1; //LE PASO LA DIRECCIÓN DE MEMORIA DE UN OBJETO HOMBRE
@@ -51,7 +51,7 @@ int main(){
   p= &m1; //LE PASO LA DIRECCIÓN DE MEMORIA DE UN OBJETO MUJER
   p->orinar(); // SE COMPORTA COMO UNA MUJER!!!
 
-  /*Veamos que sencillo resulta crear un array polimórfico de Personas
+ // Veamos que sencillo resulta crear un array polimórfico de Personas
   cout << "FUNCIONAMIENTO DE UN ARRAY POLIMÓRFICO (ESTÁTICO): " << endl;
   int utiles = 0;
   const int DIM = 10;
@@ -87,8 +87,8 @@ int main(){
 
   
   cout << "PREGUNTA ANTONIO: ¿Antonio al no heredar de persona lo puedo meter en un array polimófico?" << endl;
-  Antonio un_antonio;
-  un_antonio.setPorreta(true);
+  Renault un_antonio;
+  un_antonio.setGolfo(true);
   cout << "RESPUESTA: ¿Se permite la ligadura dinámica de objetos que no pertenecen a la jerarquía de clases? " << endl;
   vector_polimorfico[utiles] = &un_antonio;
   //ERROR EN TIEMPO DE COMPILACIÓN: 
@@ -106,5 +106,5 @@ int main(){
   delete vector_polimorfico[3];
   delete vector_polimorfico[4];
   delete [] vector_polimorfico_din;
- */
+ 
 }

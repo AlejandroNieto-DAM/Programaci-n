@@ -117,7 +117,7 @@ void Mujer::print(){
 /*---------------------------------- Class Renault -------------------------------------*/
 void Renault::print(){
   /*AÑADO LOS ATRIBUTOS PROPIOS DE MUJER*/
-  cout << "Golfo: " << this->porreta << endl;
+  cout << "Golfo: " << this->golfo << endl;
 }
 
 void Renault::orinar(){
