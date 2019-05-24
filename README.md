@@ -3,5 +3,5 @@
 Nombre | Github
 -----  | -----       
 Autor: Alejandro Nieto. | mi git
- @NietOff Ya está solucionado
- #NietOff 
+ @NietOff #1 Ya está solucionado 
+ 
