@@ -1,8 +1,6 @@
-# Ejercicio
+# Ejercicios 1º DAM
 
-Nombre | Github
------  | -----       
-Autor: Alejandro Nieto. | mi git
+__ 1º DAM CristoRey __
 
-@NietOff Ya está solucionado #1 https://github.com/NietOff/Programaci-n/issues/1
+
 
