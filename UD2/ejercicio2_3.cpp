@@ -16,13 +16,12 @@ int main()
     
     //Segun el valor de la variable muestra una cosa u otra.
     if( dato!=0 )
-   // {
+      {
         cout << "Ha escrito " << dato << " que es distinto de cero. " << endl;
         cout << "Es un alumno muy obediente. " << endl;
-  //  }
-    
-    if (dato == 0)
+  	} else {
         cout << "Ups! que desobediente..." << endl;
+	}
     
     
     /* Solo ejercutaria la primera sentencia y no mostraria el segundo cout. */

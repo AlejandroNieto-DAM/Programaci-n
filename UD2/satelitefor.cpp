@@ -8,7 +8,7 @@ int main()
     int x = 0;
     bool fin = false;
     
-    for( i = 0 ; i <= 20 && !false ; i++ )
+    for( i = 0 ; i <= 20 && fin == false ; i++ )
     {
         cin >> x;
         cout << "Recibido." << endl;

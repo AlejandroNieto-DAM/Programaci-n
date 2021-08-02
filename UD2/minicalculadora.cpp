@@ -14,7 +14,7 @@ int main()
     cout << "Introduce el segundo numero: ";
     cin >> b;
     
-    cout << "Introduce S para sumar, R para restar, M para multiplicar y D para dividir: ";
+    cout << "Introduce + para sumar, - para restar, * para multiplicar y / para dividir: ";
     cin >> sim;
     
     switch (sim) {
